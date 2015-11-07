@@ -144,11 +144,23 @@
       <div class="row save">
         <button class="btn btn-primary pull-right" ng-click="download()" ng-show="fileName">Save</button>
       </div>
-
+<br>
       <div class="instructions">
         Drag a save file here (e.g. Vault1.sav) <br />
-        or select one here <input type="file" id="sav_file" name="sav_file" />
+        or select one here<br><input type="file" id="sav_file" name="sav_file" /><br><br>
+        <small>Loading saves with high Lunch Boxes or high Mr. Handy boxes might take a while</small>
       </div>
+
+      <div class="presets">
+        <br><label title="Savefile names can only be 'Vault1.sav', 'Vault2.sav' or 'Vault3.sav'">Savefile Name: </label> <input type="text" name="presetSaveName" id="presetSaveName" placeholder="Vault1.sav" value="Vault1.sav" ><hr>
+        <button class="btn" onclick="preset('NewSave', document.getElementById('presetSaveName').value)">New Save</button>
+        <button class="btn" onclick="preset('Stats9999', document.getElementById('presetSaveName').value)">All 9999</button>
+        <button class="btn" onclick="preset('SuperDwellers', document.getElementById('presetSaveName').value)">Super Dwellers</button>
+        <button class="btn" onclick="preset('SuperHack', document.getElementById('presetSaveName').value)">Super Hack</button>
+
+      </div>
+
+
     </div>
 
     <script src="js/jquery-2.1.4.min.js"></script>
