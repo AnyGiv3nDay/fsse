@@ -20,9 +20,14 @@
         <div class="col-sm-12 vault_info">
 
           <form ng-show="fileName" name="vaultForm">
-            <div class="form-group" ng-class="{ 'has-error': vaultForm.vaultName.$invalid }">
-              <label>Name</label>
-              <input type="text" class="form-control" name="vaultName" placeholder="Vault Name" ng-model="save.vault.VaultName" ng-pattern="/^[0-9]{3}$/">
+            <div class="form-group row" ng-class="{ 'has-error': vaultForm.vaultName.$invalid }">
+              <div class="col-sm-4">
+                <label>Name</label>
+                <input type="text" class="form-control" name="vaultName" placeholder="Vault Name" ng-model="save.vault.VaultName" ng-pattern="/^[0-9]{3}$/">
+              </div>
+
+              <div class="col-sm-4">
+              </div>
             </div>
 
             <div class="form-group row">
