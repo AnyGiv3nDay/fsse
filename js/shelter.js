@@ -236,38 +236,51 @@ app.controller('dwellerController', function ($scope) {
   };
 
   function extractCount() {
-       
-    $scope.save.vault.LunchBoxesByType.forEach(function (type) {
-      if (type == 0) {
-        _lunchboxCount++;
-      } else if (type == 1) {
-        _handyCount++;
-      } else if (type == 2) {
-        _petCarrierCount++;
-      }
 
-      $scope.lunchboxCount = _lunchboxCount;
-      $scope.handyCount = _handyCount;
-	  $scope.petCarrierCount = _petCarrierCount;
-    });
+    
+    if ($scope.save.vault.LunchBoxesByType.toString().indexOf("0") > -1){
+      _lunchboxCount = $scope.save.vault.LunchBoxesByType.toString().match(/0/g).length;
+    } else {
+      _lunchboxCount = 0;
+    }
+
+    if ($scope.save.vault.LunchBoxesByType.toString().indexOf("1") > -1){
+      _handyCount = $scope.save.vault.LunchBoxesByType.toString().match(/1/g).length;
+    } else {
+      _handyCount = 0;
+    }
+
+    if ($scope.save.vault.LunchBoxesByType.toString().indexOf("2") > -1){
+      _petCarrierCount = $scope.save.vault.LunchBoxesByType.toString().match(/2/g).length;
+    } else {
+      _petCarrierCount = 0;
+    }
+
+
+    $scope.lunchboxCount = _lunchboxCount;
+    $scope.handyCount = _handyCount;
+    $scope.petCarrierCount = _petCarrierCount;
+
    
   }
 
   function updateCount() {
        
     var types = $scope.save.vault.LunchBoxesByType = [],
-      count = $scope.save.vault.LunchBoxesCount = _lunchboxCount + _handyCount + _petCarrierCount;
+    count = $scope.save.vault.LunchBoxesCount = _lunchboxCount + _handyCount + _petCarrierCount;
 
-    for (var i = 0; i < count; i++) {
-      if (i < _lunchboxCount) {
-        types.push(0);
-      } else if(i< _handyCount){
-        types.push(1);
-      } else {
-		  types.push(2);
-	  }
+    for (var i = 0; i < _lunchboxCount; i++){
+      types.push(0);
     }
-     
+
+    for (var i = 0; i < _handyCount; i++){
+      types.push(1);
+    }
+
+    for (var i = 0; i < _petCarrierCount; i++){
+      types.push(2);
+    }
+
   }
 
 });
