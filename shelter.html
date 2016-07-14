@@ -20,16 +20,22 @@
         <div class="col-sm-12 vault_info">
 
           <form ng-show="fileName" name="vaultForm">
-            <div class="form-group" ng-class="{ 'has-error': vaultForm.vaultName.$invalid }">
-              <label>Name</label>
-              <input type="text" class="form-control" name="vaultName" placeholder="Vault Name" ng-model="save.vault.VaultName" ng-pattern="/^[0-9]{3}$/">
-            </div>
+            <div class="form-group row" ng-class="{ 'has-error': vaultForm.vaultName.$invalid }">
+              <div class="col-sm-4">
+                <label>Name</label>
+                <input type="text" class="form-control" name="vaultName" placeholder="Vault Name" ng-model="save.vault.VaultName" ng-pattern="/^[0-9]{3}$/">
+              </div>
 
-            <div class="form-group row">
+              <div class="col-sm-4">
+              </div>
               <div class="col-sm-4">
                 <label>Caps</label>
                 <input type="number" class="form-control" name="caps" ng-model="save.vault.storage.resources.Nuka">
               </div>
+            </div>
+
+            <div class="form-group row">
+
 
               <div class="col-sm-4">
                 <label>Lunch Boxes</label>
@@ -40,6 +46,13 @@
                 <label>Mr. Handies</label>
                 <input type="number" class="form-control" name="handy" ng-model="handyCount">
               </div>
+			  
+			  <div class="col-sm-4">
+                <label>Pet Carrier</label>
+                <input type="number" class="form-control" name="petCarrier" ng-model="petCarrierCount">
+              </div>
+			  
+			  
             </div>
 
             <div class="form-group row">
@@ -104,7 +117,7 @@
             <div class="form-group row">
               <div class="col-sm-4">
                 <label>Happiness</label>
-                <input type="number" class="form-control" name="happiness" ng-model="dweller.happiness.happinessValue">
+                <input type="number" min="0" max="100" class="form-control" name="happiness" ng-model="dweller.happiness.happinessValue">
               </div>
 
               <div class="col-sm-4">
@@ -144,11 +157,22 @@
       <div class="row save">
         <button class="btn btn-primary pull-right" ng-click="download()" ng-show="fileName">Save</button>
       </div>
-
+<br>
       <div class="instructions">
         Drag a save file here (e.g. Vault1.sav) <br />
-        or select one here <input type="file" id="sav_file" name="sav_file" />
+        or select one here<br><input type="file" id="sav_file" name="sav_file" />
       </div>
+
+      <div class="presets">
+        <br><label title="Savefile names can only be 'Vault1.sav', 'Vault2.sav' or 'Vault3.sav'">Savefile Name: </label> <input type="text" name="presetSaveName" id="presetSaveName" placeholder="Vault1.sav" value="Vault1.sav" ><hr>
+        <button class="btn" onclick="preset('NewSave', document.getElementById('presetSaveName').value)">New Save</button>
+        <button class="btn" onclick="preset('Stats9999', document.getElementById('presetSaveName').value)">All 9999</button>
+        <button class="btn" onclick="preset('SuperDwellers', document.getElementById('presetSaveName').value)">Super Dwellers</button>
+        <button class="btn" onclick="preset('SuperHack', document.getElementById('presetSaveName').value)">Super Hack</button>
+
+      </div>
+
+
     </div>
 
     <script src="js/jquery-2.1.4.min.js"></script>
