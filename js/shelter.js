@@ -167,6 +167,7 @@ app.controller('dwellerController', function ($scope) {
     _lunchboxCount = 0,
     _handyCount = 0;
 	_petCarrierCount = 0;
+    _starterPackCount = 0;
   Object.defineProperty($scope, 'save', {
     get: function () {
       return _save
@@ -206,6 +207,17 @@ app.controller('dwellerController', function ($scope) {
     },
     set: function (val) {
       _petCarrierCount = val;
+
+      updateCount();
+    }
+  });
+  
+  Object.defineProperty($scope, 'starterPackCount', {
+    get: function () {
+      return _starterPackCount
+    },
+    set: function (val) {
+      _starterPackCount = val;
 
       updateCount();
     }
@@ -255,11 +267,18 @@ app.controller('dwellerController', function ($scope) {
     } else {
       _petCarrierCount = 0;
     }
+    
+    if ($scope.save.vault.LunchBoxesByType.toString().indexOf("3") > -1){
+      _starterPackCount = $scope.save.vault.LunchBoxesByType.toString().match(/3/g).length;
+    } else {
+      _starterPackCount = 0;
+    }
 
 
     $scope.lunchboxCount = _lunchboxCount;
     $scope.handyCount = _handyCount;
     $scope.petCarrierCount = _petCarrierCount;
+    $scope.starterPackCount = _starterPackCount;
 
    
   }
@@ -267,7 +286,7 @@ app.controller('dwellerController', function ($scope) {
   function updateCount() {
        
     var types = $scope.save.vault.LunchBoxesByType = [],
-    count = $scope.save.vault.LunchBoxesCount = _lunchboxCount + _handyCount + _petCarrierCount;
+    count = $scope.save.vault.LunchBoxesCount = _lunchboxCount + _handyCount + _petCarrierCount + _starterPackCount;
 
     for (var i = 0; i < _lunchboxCount; i++){
       types.push(0);
@@ -279,6 +298,10 @@ app.controller('dwellerController', function ($scope) {
 
     for (var i = 0; i < _petCarrierCount; i++){
       types.push(2);
+    }
+    
+    for (var i = 0; i < _starterPackCount; i++){
+      types.push(3);
     }
 
   }
