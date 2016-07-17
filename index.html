@@ -64,6 +64,18 @@
               </div>
             
             </div>
+            
+            <div class="form-group row">
+              <div class="col-sm-4">
+                <label>Vault Mode</label>
+                <select class="form-control" name="VaultMode" ng-model="save.vault.VaultMode" ng-options="label as value for (label,value) in { Normal: 'Normal', Survival: 'Survival' }"></select>
+              </div>
+              
+              <div class="col-sm-4">
+                <label>Vault Theme</label>
+                <select class="form-control" name="VaultTheme" ng-model="save.vault.VaultTheme" ng-options="key*1 as value for (key,value) in { 0: 'Normal', 1: 'Xmas', 2: 'Halloween', 3: 'ThanksGiving' }"></select>
+              </div>
+            </div>
 
             <div class="form-group row">
               <div class="col-sm-4">
@@ -93,6 +105,13 @@
                 <input type="number" class="form-control" name="radaway" ng-model="save.vault.storage.resources.RadAway">
               </div>
             </div>
+            
+            <div class="form-group row">
+              <div class="col-sm-4">
+                <label>Save app Version:</label><label ng-bind="save.appVersion"></label>
+              </div>
+            </div>
+            
           </form>
 
         </div>
@@ -183,7 +202,7 @@
         or select one here<br><input type="file" id="sav_file" name="sav_file" />
       </div>
 
-      <br><center><b><a href="https://github.com/rakion99/shelter-editor"><font color="white">Go to the source code</font></a></b></center>
+      <br><center><b><a href="https://github.com/rakion99/shelter-editor"><font color=#00FFFF>Go to the source code</font></a></b></center>
       <br><center><label><font color="red">Updated by rakion99</font></label></center>
       <div class="presets">
         <br><center><b>EXTRAS</b></center>
