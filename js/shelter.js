@@ -238,6 +238,10 @@ app.controller('dwellerController', function ($scope) {
     $scope.dweller.stats.stats[6].value = 10;
     $scope.dweller.stats.stats[7].value = 10;
   };
+  
+  $scope.removeRocks = function () {
+    $scope.save.vault.rocks = [];
+  };
 
   $scope.closeDweller = function (dweller) {
     $scope.dweller = {};
