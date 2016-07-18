@@ -119,6 +119,9 @@
 
       <div class="row box" ng-show="section == 'dwellers'">
         <div class="dwellers list-group col-sm-4">
+        <div class="row save">
+           <button type="button" class="btn btn-primary pull-right" ng-click="maxSpecialAll()">Max Stats All</button>
+        </div>
           <a ng-repeat="d in save.dwellers.dwellers" ng-click="editDweller(d);" ng-class="{ 'active': dweller == d }" class="list-group-item">{{ d.name }} {{ d.lastName }}</a>
         </div>
 

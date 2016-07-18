@@ -228,6 +228,13 @@ app.controller('dwellerController', function ($scope) {
   $scope.editDweller = function (dweller) {
     $scope.dweller = dweller;
   };
+  
+  $scope.maxSpecialAll = function () {
+    var sum2 = Object.keys($scope.save.dwellers.dwellers).length;
+    for(i=0; i<sum2; i++)
+    for(i2=0; i2<8; i2++)
+    $scope.save.dwellers.dwellers[i].stats.stats[i2].value = 10;
+  };
 
   $scope.maxSpecial = function () {
     $scope.dweller.stats.stats[1].value = 10;
