@@ -59,10 +59,18 @@
                 <input type="number" class="form-control" name="starterPack" ng-model="starterPackCount">
               </div>
               
-              <div class="row rockbtn">
+            </div>
+            
+            <div class="form-group row">
+              <div class="col-sm-4">
                 <button type="button" class="btn btn-primary pull-right" ng-click="removeRocks()">Remove Rocks</button>
               </div>
-            
+              <div class="col-sm-4">
+                <button type="button" class="btn btn-primary pull-right" ng-click="unlockrooms()">Unlock All Rooms</button>
+              </div>
+              <div class="col-sm-4">
+                <button type="button" class="btn btn-primary pull-right" ng-click="unlockrecipes()">Unlock All Recipes</button>
+              </div>
             </div>
             
             <div class="form-group row">
@@ -118,10 +126,15 @@
       </div>
 
       <div class="row box" ng-show="section == 'dwellers'">
-        <div class="dwellers list-group col-sm-4">
-        <div class="row save">
+        <div class="form-group row">
+        <div class="col-sm-4">
            <button type="button" class="btn btn-primary pull-right" ng-click="maxSpecialAll()">Max Stats All</button>
         </div>
+        <div class="col-sm-4">
+           <button type="button" class="btn btn-primary pull-right" ng-click="maxhappinessAll()">Max Happiness All</button>
+        </div>
+        </div>
+        <div class="dwellers list-group col-sm-4">
           <a ng-repeat="d in save.dwellers.dwellers" ng-click="editDweller(d);" ng-class="{ 'active': dweller == d }" class="list-group-item">{{ d.name }} {{ d.lastName }}</a>
         </div>
 
@@ -171,6 +184,16 @@
                 <label>Level</label>
                 <input type="number" class="form-control" name="level" ng-model="dweller.experience.currentLevel">
               </div>
+              
+              <div class="col-sm-4">
+                <label>Skin Color</label>
+                <input type="number" class="form-control" name="skincolor" ng-model="dweller.skinColor">
+              </div>
+              
+              <div class="col-sm-4">
+                <label>Hair Color</label>
+                <input type="number" class="form-control" name="hairColor" ng-model="dweller.hairColor">
+              </div>
             </div>
 
             <div class="form-group row">
@@ -185,6 +208,8 @@
             <div class="row save">
               <button type="button" class="btn btn-primary pull-right" ng-click="maxSpecial()">Max Stats</button>
             </div>
+            <br>
+            <br>
           </form>
 
         </div>
@@ -210,7 +235,18 @@
       <br><center><label><font color="red">Updated by rakion99</font></label></center>
       <div class="presets">
         <br><center><b>EXTRAS</b></center>
-        <br><label title="Savefile names can only be 'Vault1.sav', 'Vault2.sav' or 'Vault3.sav'">Savefile Name: </label> <input type="text" name="presetSaveName" id="presetSaveName" placeholder="Vault1.sav" value="Vault1.sav" ><hr>
+        <br><center><b>Color Picker</b></center>
+        <form>
+        <p>
+        Hex Color:
+        <input name="color1" class="jscolor" value="0000FF">
+        Copy this to the Dweller color:
+        <span class='value1' ng-bind="colortofos()"></span>
+        </p>
+        <input type="submit" value="Update Color">
+        </form>
+        <br>
+        <br><label title="Savefile names can only be 'Vault1.sav', 'Vault2.sav' or 'Vault3.sav'">Savefile Name: </label> <input type="text" name="presetSaveName" id="presetSaveName" placeholder="Vault1.sav" value="Vault1.sav" ><br>
         <button class="btn" onclick="preset('NewSave', document.getElementById('presetSaveName').value)">New Save</button>
         <button class="btn" onclick="preset('Stats9999', document.getElementById('presetSaveName').value)">All 9999</button>
         <button class="btn" onclick="preset('SuperDwellers', document.getElementById('presetSaveName').value)">Super Dwellers</button>
@@ -230,6 +266,7 @@
     <script src="js/aes.js"></script>
     <script src="js/FileSaver.js"></script>
     <script src="js/shelter.js"></script>
+    <script src="js/jscolor.js"></script>
   </body>
 
 </html>
