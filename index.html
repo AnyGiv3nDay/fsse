@@ -219,6 +219,17 @@
                 <label>Hair Color</label>
                 <input class="form-control jscolor" name="hairColor" ng-model="hairColor">
               </div>
+
+              <div class="col-sm-4" ng-if="dweller.gender==1">
+                <label>Pregnant</label>
+                <select class="form-control" name="pregnant" ng-model="dweller.pregnant" ng-options="o.v as o.n for o in [{ n: 'Not Pregnant', v: false }, { n: 'Pregnant', v: true }]"></select>
+              </div>
+
+
+                <label>Baby Ready</label>
+                <select class="form-control" name="babyReady" ng-model="dweller.babyReady" ng-options="o.v as o.n for o in [{ n: 'Not Ready', v: false }, { n: 'Ready', v: true }]"></select>
+              </div>
+
             </div>
 
 
