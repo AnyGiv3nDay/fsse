@@ -97,6 +97,7 @@ function decrypt(evt, fileName, base64Str) {
   var plainBits = sjcl.mode.cbc.decrypt(prp, cipherBits, iv);
   var jsonStr = sjcl.codec.utf8String.fromBits(plainBits);
   try {
+    document.getElementById("presetSaveName").value = fileName;
     edit(fileName, JSON.parse(jsonStr));
   } catch (e) {
     throw "Decrypted file does not contain valid JSON: " + e
@@ -336,7 +337,7 @@ app.controller('dwellerController', function ($scope) {
   };
 
   $scope.download = function () {
-    encrypt($scope.fileName, $scope.save);
+    encrypt(document.getElementById("presetSaveName").value, $scope.save);
   };
 
   $scope.colortofos = colortofos;
@@ -762,8 +763,8 @@ function preset(preset, saveFileName){
     if (xhr.readyState == 4) {
       var resp = JSON.parse(xhr.responseText);
       $('.instructions').hide();
-      edit(saveFileName, resp);
 
+      edit(saveFileName, resp);
     }
 
   };
