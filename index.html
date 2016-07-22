@@ -132,6 +132,18 @@
                 <button type="button" class="btn btn-primary" ng-click="unlockrecipes()">Activate</button>
               </div>
             </div>
+            <hr />
+
+            <div class="form-group row">
+            <div class="col-sm-4">
+              <label>Max All Dweller Stats</label><br />
+               <button type="button" class="btn btn-primary" ng-click="maxSpecialAll()">Activate</button>
+            </div>
+            <div class="col-sm-4">
+              <label>Max All Dweller Happiness</label><br />
+               <button type="button" class="btn btn-primary" ng-click="maxhappinessAll()">Activate</button>
+            </div>
+            </div>
 
           </form>
 
@@ -230,30 +242,7 @@
       <div class="row box" ng-show="section == 'extras'">
       <div class="col-sm-12 vault_info">
       <form>
-        <!--
       <div class="form-group row">
-
-        <div class="col-sm-12">
-        <label>Hex Color</label><br />
-        <input name="color1" class="jscolor" value="0000FF"> :  <span class='value1' ng-bind="colortofos()"></span>
-    
-        <script>
-        {
-          function jscolorFunction()
-          {
-            colortofos();
-            setTimeout(jscolorFunction, 250);
-          }
-          setTimeout(jscolorFunction, 1000);
-        }
-        </script>
-
-        </div>
-
-
-        </div>--->
-
-        <div class="form-group row">
 
 
         <div class="col-sm-3">
@@ -275,6 +264,7 @@
         </div>
 
         </div>
+
         </form>
 
 
