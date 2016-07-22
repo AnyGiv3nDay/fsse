@@ -15,7 +15,10 @@
 
   <body ng-app="shelter" ng-controller="dwellerController">
     <div class="container">
-
+      <!---
+      <br><center><b><a href="https://github.com/rakion99/shelter-editor"><font color=#00FFFF>Go to the source code</font></a></b></center>
+      <br><center><label><font color="red">Updated by rakion99</font></label></center>
+      -->
       <div class="row box" ng-show="section == 'vault'">
         <div class="col-sm-12 vault_info">
 
@@ -31,7 +34,7 @@
                 <input type="number" class="form-control" name="caps" ng-model="save.vault.storage.resources.Nuka">
               </div>
               <div class="col-sm-4">
-                <label>NukaColaQuantum</label>
+                <label>Nuka Cola Quantums</label>
                 <input type="number" class="form-control" name="nuka" ng-model="save.vault.storage.resources.NukaColaQuantum">
               </div>
             </div>
@@ -48,37 +51,30 @@
                 <label>Mr. Handies</label>
                 <input type="number" class="form-control" name="handy" ng-model="handyCount">
               </div>
-			  
-			  <div class="col-sm-4">
+
+        <div class="col-sm-4">
                 <label>Pet Carrier</label>
                 <input type="number" class="form-control" name="petCarrier" ng-model="petCarrierCount">
               </div>
-              
+            </div>
+
+            <div class="form-group row">
+
               <div class="col-sm-4">
                 <label>Starter Pack</label>
                 <input type="number" class="form-control" name="starterPack" ng-model="starterPackCount">
               </div>
-              
+
             </div>
-            
-            <div class="form-group row">
-              <div class="col-sm-4">
-                <button type="button" class="btn btn-primary pull-right" ng-click="removeRocks()">Remove Rocks</button>
-              </div>
-              <div class="col-sm-4">
-                <button type="button" class="btn btn-primary pull-right" ng-click="unlockrooms()">Unlock All Rooms</button>
-              </div>
-              <div class="col-sm-4">
-                <button type="button" class="btn btn-primary pull-right" ng-click="unlockrecipes()">Unlock All Recipes</button>
-              </div>
-            </div>
-            
+
+            <hr />
+
             <div class="form-group row">
               <div class="col-sm-4">
                 <label>Vault Mode</label>
                 <select class="form-control" name="VaultMode" ng-model="save.vault.VaultMode" ng-options="label as value for (label,value) in { Normal: 'Normal', Survival: 'Survival' }"></select>
               </div>
-              
+
               <div class="col-sm-4">
                 <label>Vault Theme</label>
                 <select class="form-control" name="VaultTheme" ng-model="save.vault.VaultTheme" ng-options="key*1 as value for (key,value) in { 0: 'Normal', 1: 'Xmas', 2: 'Halloween', 3: 'ThanksGiving' }"></select>
@@ -113,27 +109,86 @@
                 <input type="number" class="form-control" name="radaway" ng-model="save.vault.storage.resources.RadAway">
               </div>
             </div>
-            
+
+            <hr />
+
             <div class="form-group row">
               <div class="col-sm-4">
                 <label>Save app Version:</label><label ng-bind="save.appVersion"></label>
               </div>
             </div>
-            
+
+            <div class="form-group row">
+              <div class="col-sm-4">
+                <label>Remove Rocks</label><br />
+                <button type="button" class="btn btn-primary" ng-click="removeRocks()">Activate</button>
+              </div>
+              <div class="col-sm-4">
+                  <label>Unlock All Rooms</label><br />
+                <button type="button" class="btn btn-primary" ng-click="unlockrooms()">Activate</button>
+              </div>
+              <div class="col-sm-4">
+                <label>Unlock All Recipes</label><br />
+                <button type="button" class="btn btn-primary" ng-click="unlockrecipes()">Activate</button>
+              </div>
+            </div>
+
           </form>
 
         </div>
       </div>
 
-      <div class="row box" ng-show="section == 'dwellers'">
+      <div class="row box" ng-show="section == 'extras'">
+      <div class="col-sm-12 vault_info">
+      <form>
+      <div class="form-group row">
+
+        <div class="col-sm-6">
+        <label>Hex Color</label><br />
+        <input name="color1" class="jscolor" value="0000FF">
+        <!---Copy this to the Dweller color:-->
+        <!---<span class='value1' ng-bind="colortofos()"></span>-->
+        <!--<input type="submit" value="Update Color">-->
+        </div>
+
+
+        </div>
         <div class="form-group row">
-        <div class="col-sm-4">
-           <button type="button" class="btn btn-primary pull-right" ng-click="maxSpecialAll()">Max Stats All</button>
+
+
+        <div class="col-sm-3">
+          <label>New Save</label><br />
+          <button class="btn" onclick="preset('NewSave', document.getElementById('presetSaveName').value)">Activate</button>
         </div>
-        <div class="col-sm-4">
-           <button type="button" class="btn btn-primary pull-right" ng-click="maxhappinessAll()">Max Happiness All</button>
+
+        <div class="col-sm-3">
+            <label>All 9999</label><br />
+          <button class="btn" onclick="preset('Stats9999', document.getElementById('presetSaveName').value)">Activate</button>
         </div>
+        <div class="col-sm-3">
+            <label>Super Dwellers</label><br />
+          <button class="btn" onclick="preset('SuperDwellers', document.getElementById('presetSaveName').value)">Activate</button>
         </div>
+        <div class="col-sm-3">
+            <label>Super Hack</label><br />
+          <button class="btn" onclick="preset('SuperHack', document.getElementById('presetSaveName').value)">Activate</button>
+        </div>
+
+        </div>
+        </form>
+
+
+      <hr />
+
+      <label title="Savefile names can only be 'Vault1.sav', 'Vault2.sav' or 'Vault3.sav'">Savefile Name: </label> <input type="text" name="presetSaveName" id="presetSaveName" placeholder="Vault1.sav" value="Vault1.sav" ><br>
+
+        <br><center><b><a href="SaveDecrypt.html">Fallout Shelter Save Decryptor</a></b></center>
+
+      </div>
+      </div>
+
+      <div class="row box" ng-show="section == 'dwellers'">
+
         <div class="dwellers list-group col-sm-4">
           <a ng-repeat="d in save.dwellers.dwellers" ng-click="editDweller(d);" ng-class="{ 'active': dweller == d }" class="list-group-item">{{ d.name }} {{ d.lastName }}</a>
         </div>
@@ -169,7 +224,7 @@
                 <label>Health</label>
                 <input type="number" class="form-control" name="health" ng-model="dweller.health.healthValue">
               </div>
-              
+
               <div class="col-sm-4">
                 <label>Max Health</label>
                 <input type="number" class="form-control" name="maxhealth" ng-model="dweller.health.maxHealth">
@@ -179,17 +234,17 @@
                 <label>Radiation</label>
                 <input type="number" class="form-control" name="radiation" ng-model="dweller.health.radiationValue">
               </div>
-              
+
               <div class="col-sm-4">
                 <label>Level</label>
                 <input type="number" class="form-control" name="level" ng-model="dweller.experience.currentLevel">
               </div>
-              
+
               <div class="col-sm-4">
                 <label>Skin Color</label>
                 <input type="number" class="form-control" name="skincolor" ng-model="dweller.skinColor">
               </div>
-              
+
               <div class="col-sm-4">
                 <label>Hair Color</label>
                 <input type="number" class="form-control" name="hairColor" ng-model="dweller.hairColor">
@@ -215,10 +270,13 @@
         </div>
       </div>
 
+
+
       <div class="row tabs">
         <a href="#" class="tab">Fallout Shelter - Save Editor</a>
         <a href="#shelter" ng-hide="!save.dwellers" class="tab" ng-click="section = 'vault'" ng-class="{ 'active': section == 'vault' }">Vault {{ save.vault.VaultName }}<small></small></a>
         <a href="#dweller" ng-hide="!save.dwellers" class="tab" ng-click="section = 'dwellers'" ng-class="{ 'active': section == 'dwellers' }">Dwellers <small>({{ save.dwellers.dwellers.length }})</small></a>
+        <a href="#extras" ng-hide="!save.dwellers" class="tab" ng-click="section = 'extras'" ng-class="{ 'active': section == 'extras' }">Extras </a>
       </div>
 
       <div class="row save">
@@ -227,34 +285,12 @@
 <br>
       <div class="instructions">
         Drag a save file here (e.g. Vault1.sav) <br />
-        or select one here<br><input type="file" id="sav_file" name="sav_file" /><br />
-        For the pc version the save is in Documents\My Games\Fallout Shelter
+        or select one here <input type="file" id="sav_file" name="sav_file" />
+        <br /><br/><br />
+        For the PC Version the save is in "Documents\My Games\Fallout Shelter"
       </div>
 
-      <br><center><b><a href="https://github.com/rakion99/shelter-editor"><font color=#00FFFF>Go to the source code</font></a></b></center>
-      <br><center><label><font color="red">Updated by rakion99</font></label></center>
-      <div class="presets">
-        <br><center><b>EXTRAS</b></center>
-        <br><center><b>Color Picker</b></center>
-        <form>
-        <p>
-        Hex Color:
-        <input name="color1" class="jscolor" value="0000FF">
-        Copy this to the Dweller color:
-        <span class='value1' ng-bind="colortofos()"></span>
-        </p>
-        <input type="submit" value="Update Color">
-        </form>
-        <br>
-        <br><label title="Savefile names can only be 'Vault1.sav', 'Vault2.sav' or 'Vault3.sav'">Savefile Name: </label> <input type="text" name="presetSaveName" id="presetSaveName" placeholder="Vault1.sav" value="Vault1.sav" ><br>
-        <button class="btn" onclick="preset('NewSave', document.getElementById('presetSaveName').value)">New Save</button>
-        <button class="btn" onclick="preset('Stats9999', document.getElementById('presetSaveName').value)">All 9999</button>
-        <button class="btn" onclick="preset('SuperDwellers', document.getElementById('presetSaveName').value)">Super Dwellers</button>
-        <button class="btn" onclick="preset('SuperHack', document.getElementById('presetSaveName').value)">Super Hack</button>
-        <hr>
-        <br><center><b><a href="SaveDecrypt.html">Fallout Shelter Save Decryptor</a></b></center>
 
-      </div>
 
 
     </div>
@@ -267,6 +303,9 @@
     <script src="js/FileSaver.js"></script>
     <script src="js/shelter.js"></script>
     <script src="js/jscolor.js"></script>
+
+
   </body>
+
 
 </html>
