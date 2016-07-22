@@ -138,66 +138,7 @@
         </div>
       </div>
 
-      <div class="row box" ng-show="section == 'extras'">
-      <div class="col-sm-12 vault_info">
-      <form>
-      <div class="form-group row">
 
-        <div class="col-sm-12">
-        <label>Hex Color</label><br />
-        <input name="color1" class="jscolor" value="0000FF"> :  <span class='value1' ng-bind="colortofos()"></span>
-        <!---Copy this to the Dweller color:--><br />
-
-        <!--<input type="submit" value="Update Color">-->
-
-        <script>
-        {
-          function jscolorFunction()
-          {
-            colortofos();
-            setTimeout(jscolorFunction, 250);
-          }
-          setTimeout(jscolorFunction, 1000);
-        }
-        </script>
-
-        </div>
-
-
-        </div>
-        <div class="form-group row">
-
-
-        <div class="col-sm-3">
-          <label>New Save</label><br />
-          <button class="btn" onclick="preset('NewSave', document.getElementById('presetSaveName').value)">Activate</button>
-        </div>
-
-        <div class="col-sm-3">
-            <label>All 9999</label><br />
-          <button class="btn" onclick="preset('Stats9999', document.getElementById('presetSaveName').value)">Activate</button>
-        </div>
-        <div class="col-sm-3">
-            <label>Super Dwellers</label><br />
-          <button class="btn" onclick="preset('SuperDwellers', document.getElementById('presetSaveName').value)">Activate</button>
-        </div>
-        <div class="col-sm-3">
-            <label>Super Hack</label><br />
-          <button class="btn" onclick="preset('SuperHack', document.getElementById('presetSaveName').value)">Activate</button>
-        </div>
-
-        </div>
-        </form>
-
-
-      <hr />
-
-      <label title="Savefile names can only be 'Vault1.sav', 'Vault2.sav' or 'Vault3.sav'">Savefile Name: </label> <input type="text" name="presetSaveName" id="presetSaveName" placeholder="Vault1.sav" value="Vault1.sav" ><br>
-
-        <br><center><b><a href="SaveDecrypt.html">Fallout Shelter Save Decryptor</a></b></center>
-
-      </div>
-      </div>
 
       <div class="row box" ng-show="section == 'dwellers'">
 
@@ -242,6 +183,8 @@
                 <input type="number" class="form-control" name="maxhealth" ng-model="dweller.health.maxHealth">
               </div>
 
+            </div>
+            <div class="form-group row">
               <div class="col-sm-4">
                 <label>Radiation</label>
                 <input type="number" class="form-control" name="radiation" ng-model="dweller.health.radiationValue">
@@ -254,12 +197,14 @@
 
               <div class="col-sm-4">
                 <label>Skin Color</label>
-                <input type="number" class="form-control" name="skincolor" ng-model="dweller.skinColor">
+                <input class="form-control jscolor" id="skinColor" name="skincolor" ng-model="skinColor">
               </div>
+            </div>
 
+            <div class="form-group row">
               <div class="col-sm-4">
                 <label>Hair Color</label>
-                <input type="number" class="form-control" name="hairColor" ng-model="dweller.hairColor">
+                <input class="form-control jscolor" name="hairColor" ng-model="hairColor">
               </div>
             </div>
 
@@ -282,7 +227,65 @@
         </div>
       </div>
 
+      <div class="row box" ng-show="section == 'extras'">
+      <div class="col-sm-12 vault_info">
+      <form>
+        <!--
+      <div class="form-group row">
 
+        <div class="col-sm-12">
+        <label>Hex Color</label><br />
+        <input name="color1" class="jscolor" value="0000FF"> :  <span class='value1' ng-bind="colortofos()"></span>
+    
+        <script>
+        {
+          function jscolorFunction()
+          {
+            colortofos();
+            setTimeout(jscolorFunction, 250);
+          }
+          setTimeout(jscolorFunction, 1000);
+        }
+        </script>
+
+        </div>
+
+
+        </div>--->
+
+        <div class="form-group row">
+
+
+        <div class="col-sm-3">
+          <label>New Save</label><br />
+          <button class="btn" onclick="preset('NewSave', document.getElementById('presetSaveName').value)">Activate</button>
+        </div>
+
+        <div class="col-sm-3">
+            <label>All 9999</label><br />
+          <button class="btn" onclick="preset('Stats9999', document.getElementById('presetSaveName').value)">Activate</button>
+        </div>
+        <div class="col-sm-3">
+            <label>Super Dwellers</label><br />
+          <button class="btn" onclick="preset('SuperDwellers', document.getElementById('presetSaveName').value)">Activate</button>
+        </div>
+        <div class="col-sm-3">
+            <label>Super Hack</label><br />
+          <button class="btn" onclick="preset('SuperHack', document.getElementById('presetSaveName').value)">Activate</button>
+        </div>
+
+        </div>
+        </form>
+
+
+      <hr />
+
+      <label title="Savefile names can only be 'Vault1.sav', 'Vault2.sav' or 'Vault3.sav'">Savefile Name: </label> <input type="text" name="presetSaveName" id="presetSaveName" placeholder="Vault1.sav" value="Vault1.sav" ><br>
+
+        <br><center><b><a href="SaveDecrypt.html">Fallout Shelter Save Decryptor</a></b></center>
+
+      </div>
+      </div>
 
       <div class="row tabs">
         <a href="#" class="tab">Fallout Shelter - Save Editor</a>

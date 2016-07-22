@@ -3,13 +3,38 @@ var iv = sjcl.codec.hex.toBits("7475383967656A693334307438397532");
 sjcl.beware["CBC mode is dangerous because it doesn't protect message integrity."]();
 var isLoaded=false;
 
-var colortofos =  function () {
-    var colorhex = document.getElementsByClassName("jscolor")[0].value;
+function colorHack()
+{
+  $('.jscolor').each(function() {
+    $(this).focus();
+  });
+
+  $("input").blur();
+}
+
+function colorConverter(colorhex, mode)
+{
+  var mode = ((mode === undefined) ? false : mode);
+  if(mode)
+  {
+
+    var hexColor = colorhex.toString(16).substring(2).toUpperCase();
+    return hexColor;
+  }
+  else
+  {
     var colorfos;
     var x = colorhex.substring(0, 0) + "FF" + colorhex.substring(0);
     colorfos = parseInt(x, 16);
-    $(".value1").html(colorfos);
-};
+    return colorfos;
+  }
+}
+
+function colortofos()
+{
+    var colorhex = document.getElementsByClassName("jscolor")[0].value;
+    $(".value1").html(colorConverter(colorhex));
+}
 
 $(document).ready(function(){
 
@@ -173,9 +198,34 @@ app.controller('dwellerController', function ($scope) {
 
   var _save = {},
     _lunchboxCount = 0,
-    _handyCount = 0;
-  _petCarrierCount = 0;
-    _starterPackCount = 0;
+    _handyCount = 0,
+    _petCarrierCount = 0,
+    _starterPackCount = 0,
+    _skinColor = null,
+    _hairColor = null;
+
+
+    Object.defineProperty($scope, 'skinColor', {
+      get: function () {
+        return _skinColor
+      },
+      set: function (val) {
+        _skinColor = val;
+        $scope.dweller.skinColor = colorConverter(val);
+      }
+    });
+
+
+    Object.defineProperty($scope, 'hairColor', {
+      get: function () {
+        return _hairColor
+      },
+      set: function (val) {
+        _hairColor = val;
+        $scope.dweller.hairColor = colorConverter(val);
+      }
+    });
+
   Object.defineProperty($scope, 'save', {
     get: function () {
       return _save
@@ -186,6 +236,11 @@ app.controller('dwellerController', function ($scope) {
       extractCount();
     }
   });
+
+
+
+
+
 
   Object.defineProperty($scope, 'lunchboxCount', {
     get: function () {
@@ -235,6 +290,9 @@ app.controller('dwellerController', function ($scope) {
 
   $scope.editDweller = function (dweller) {
     $scope.dweller = dweller;
+    _skinColor = colorConverter($scope.dweller.skinColor, true);
+    _hairColor = colorConverter($scope.dweller.hairColor, true);
+    setTimeout(colorHack, 200);
   };
 
   $scope.maxhappinessAll = function () {
