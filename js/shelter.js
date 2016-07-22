@@ -301,6 +301,15 @@ app.controller('dwellerController', function ($scope) {
     $scope.save.dwellers.dwellers[i].happiness.happinessValue = 100;
   };
 
+  $scope.healAll = function () {
+    var sum2 = Object.keys($scope.save.dwellers.dwellers).length;
+    for(i=0; i<sum2; i++)
+    {
+      $scope.save.dwellers.dwellers[i].health.radiationValue = 0;
+      $scope.save.dwellers.dwellers[i].health.healthValue = $scope.save.dwellers.dwellers[i].health.maxHealth;
+    }
+  };
+
   $scope.maxSpecialAll = function () {
     var sum2 = Object.keys($scope.save.dwellers.dwellers).length;
     for(i=0; i<sum2; i++)
