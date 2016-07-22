@@ -15,10 +15,7 @@
 
   <body ng-app="shelter" ng-controller="dwellerController">
     <div class="container">
-      <!---
-      <br><center><b><a href="https://github.com/rakion99/shelter-editor"><font color=#00FFFF>Go to the source code</font></a></b></center>
-      <br><center><label><font color="red">Updated by rakion99</font></label></center>
-      -->
+
       <div class="row box" ng-show="section == 'vault'">
         <div class="col-sm-12 vault_info">
 
@@ -283,6 +280,12 @@
 
         <br><center><b><a href="SaveDecrypt.html">Fallout Shelter Save Decryptor</a></b></center>
 
+      <hr />
+
+      <br><center><b><a href="https://github.com/rakion99/shelter-editor">View the Source Code</a></b></center>
+      <br><center><label>Updated by <a href="https://github.com/rakion99/">rakion99</a> &amp; <a href="https://github.com/TheCreatorJames/">TheCreatorJames</a></label></center>
+      <br><center><label>Project Originally by <a href="https://github.com/MobileSam/shelter-editor">MobileSam</a>.</label></center>
+
       </div>
       </div>
 
@@ -290,7 +293,7 @@
         <a href="#" class="tab">Fallout Shelter - Save Editor</a>
         <a href="#shelter" ng-hide="!save.dwellers" class="tab" ng-click="section = 'vault'" ng-class="{ 'active': section == 'vault' }">Vault {{ save.vault.VaultName }}<small></small></a>
         <a href="#dweller" ng-hide="!save.dwellers" class="tab" ng-click="section = 'dwellers'" ng-class="{ 'active': section == 'dwellers' }">Dwellers <small>({{ save.dwellers.dwellers.length }})</small></a>
-        <a href="#extras" ng-hide="!save.dwellers" class="tab" ng-click="section = 'extras'" ng-class="{ 'active': section == 'extras' }">Presets </a>
+        <a href="#extras" ng-hide="!save.dwellers" class="tab" ng-click="section = 'extras'" ng-class="{ 'active': section == 'extras' }">Presets &amp; Extras</a>
       </div>
 
       <div class="row save">
