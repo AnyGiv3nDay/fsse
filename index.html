@@ -28,11 +28,11 @@
 
               <div class="col-sm-4">
                 <label>Caps</label>
-                <input type="number" class="form-control" name="caps" ng-model="save.vault.storage.resources.Nuka">
+                <input type="number" class="form-control" min="0" name="caps" ng-model="save.vault.storage.resources.Nuka">
               </div>
               <div class="col-sm-4">
                 <label>Nuka Cola Quantums</label>
-                <input type="number" class="form-control" name="nuka" ng-model="save.vault.storage.resources.NukaColaQuantum">
+                <input type="number" class="form-control" min="0" name="nuka" ng-model="save.vault.storage.resources.NukaColaQuantum">
               </div>
             </div>
 
@@ -41,17 +41,17 @@
 
               <div class="col-sm-4">
                 <label>Lunch Boxes</label>
-                <input type="number" class="form-control" name="lunchbox" ng-model="lunchboxCount">
+                <input type="number" class="form-control" min="0" name="lunchbox" ng-model="lunchboxCount">
               </div>
 
               <div class="col-sm-4">
                 <label>Mr. Handies</label>
-                <input type="number" class="form-control" name="handy" ng-model="handyCount">
+                <input type="number" class="form-control" min="0" name="handy" ng-model="handyCount">
               </div>
 
         <div class="col-sm-4">
                 <label>Pet Carrier</label>
-                <input type="number" class="form-control" name="petCarrier" ng-model="petCarrierCount">
+                <input type="number" class="form-control" min="0" name="petCarrier" ng-model="petCarrierCount">
               </div>
             </div>
 
@@ -59,7 +59,7 @@
 
               <div class="col-sm-4">
                 <label>Starter Pack</label>
-                <input type="number" class="form-control" name="starterPack" ng-model="starterPackCount">
+                <input type="number" class="form-control" min="0" name="starterPack" ng-model="starterPackCount">
               </div>
 
             </div>
@@ -81,29 +81,29 @@
             <div class="form-group row">
               <div class="col-sm-4">
                 <label>Food</label>
-                <input type="number" class="form-control" name="caps" ng-model="save.vault.storage.resources.Food">
+                <input type="number" class="form-control" min="0" name="caps" ng-model="save.vault.storage.resources.Food">
               </div>
 
               <div class="col-sm-4">
                 <label>Energy</label>
-                <input type="number" class="form-control" name="energy" ng-model="save.vault.storage.resources.Energy">
+                <input type="number" class="form-control" min="0" name="energy" ng-model="save.vault.storage.resources.Energy">
               </div>
 
               <div class="col-sm-4">
                 <label>Water</label>
-                <input type="number" class="form-control" name="water" ng-model="save.vault.storage.resources.Water">
+                <input type="number" class="form-control" min="0" name="water" ng-model="save.vault.storage.resources.Water">
               </div>
             </div>
 
             <div class="form-group row">
               <div class="col-sm-6">
                 <label>Stimpack</label>
-                <input type="number" class="form-control" name="stimpack" ng-model="save.vault.storage.resources.StimPack">
+                <input type="number" class="form-control" min="0" name="stimpack" ng-model="save.vault.storage.resources.StimPack">
               </div>
 
               <div class="col-sm-6">
                 <label>RadAway</label>
-                <input type="number" class="form-control" name="radaway" ng-model="save.vault.storage.resources.RadAway">
+                <input type="number" class="form-control" min="0" name="radaway" ng-model="save.vault.storage.resources.RadAway">
               </div>
             </div>
 
@@ -188,7 +188,7 @@
 
               <div class="col-sm-4">
                 <label>Health</label>
-                <input type="number" class="form-control" name="health" ng-model="dweller.health.healthValue">
+                <input type="number" class="form-control" name="health" min="0" max="{{dweller.health.maxHealth}}" ng-model="dweller.health.healthValue">
               </div>
 
               <div class="col-sm-4">
@@ -200,12 +200,12 @@
             <div class="form-group row">
               <div class="col-sm-4">
                 <label>Radiation</label>
-                <input type="number" class="form-control" name="radiation" ng-model="dweller.health.radiationValue">
+                <input type="number" class="form-control" min="0" max="{{dweller.health.maxHealth}}" name="radiation" ng-model="dweller.health.radiationValue">
               </div>
 
               <div class="col-sm-4">
                 <label>Level</label>
-                <input type="number" class="form-control" name="level" ng-model="dweller.experience.currentLevel">
+                <input type="number" class="form-control" name="level" min="1" ng-model="dweller.experience.currentLevel">
               </div>
 
               <div class="col-sm-4">
