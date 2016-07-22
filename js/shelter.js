@@ -207,10 +207,16 @@ app.controller('dwellerController', function ($scope) {
         return _firstName
       },
       set: function (val) {
-        if(val.trim().length == 0) val = "Vault Dweller";
-        _firstName = val;
 
-        $scope.dweller.name = val;
+        _firstName = val;
+        if(val.trim().length == 0)
+        {
+          $scope.dweller.name = "Vault Dweller";
+        }
+        else
+        {
+          $scope.dweller.name = val;
+        }
       }
     });
 
