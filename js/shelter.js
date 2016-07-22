@@ -174,8 +174,6 @@ $('body .container .box')
 
 // Modifications
 function edit(fileName, save) {
-
-
   isLoaded=true;
   var scope = angular.element($('body').get(0)).scope();
 
@@ -183,8 +181,6 @@ function edit(fileName, save) {
     scope.save = save;
     scope.fileName = fileName;
   });
-
-
 }
 
 var app = angular.module('shelter', []);
@@ -203,8 +199,20 @@ app.controller('dwellerController', function ($scope) {
     _petCarrierCount = 0,
     _starterPackCount = 0,
     _skinColor = null,
-    _hairColor = null;
+    _hairColor = null,
+    _firstName = null;
 
+    Object.defineProperty($scope, 'firstName', {
+      get: function () {
+        return _firstName
+      },
+      set: function (val) {
+        if(val.trim().length == 0) val = "Vault Dweller";
+        _firstName = val;
+
+        $scope.dweller.name = val;
+      }
+    });
 
     Object.defineProperty($scope, 'skinColor', {
       get: function () {
@@ -215,7 +223,6 @@ app.controller('dwellerController', function ($scope) {
         $scope.dweller.skinColor = colorConverter(val);
       }
     });
-
 
     Object.defineProperty($scope, 'hairColor', {
       get: function () {
@@ -237,11 +244,6 @@ app.controller('dwellerController', function ($scope) {
       extractCount();
     }
   });
-
-
-
-
-
 
   Object.defineProperty($scope, 'lunchboxCount', {
     get: function () {
@@ -291,6 +293,7 @@ app.controller('dwellerController', function ($scope) {
 
   $scope.editDweller = function (dweller) {
     $scope.dweller = dweller;
+    _firstName = $scope.dweller.name;
     _skinColor = colorConverter($scope.dweller.skinColor, true);
     _hairColor = colorConverter($scope.dweller.hairColor, true);
     setTimeout(colorHack, 200);
