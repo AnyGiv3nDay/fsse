@@ -143,12 +143,24 @@
       <form>
       <div class="form-group row">
 
-        <div class="col-sm-6">
+        <div class="col-sm-12">
         <label>Hex Color</label><br />
-        <input name="color1" class="jscolor" value="0000FF">
-        <!---Copy this to the Dweller color:-->
-        <!---<span class='value1' ng-bind="colortofos()"></span>-->
+        <input name="color1" class="jscolor" value="0000FF"> :  <span class='value1' ng-bind="colortofos()"></span>
+        <!---Copy this to the Dweller color:--><br />
+
         <!--<input type="submit" value="Update Color">-->
+
+        <script>
+        {
+          function jscolorFunction()
+          {
+            colortofos();
+            setTimeout(jscolorFunction, 250);
+          }
+          setTimeout(jscolorFunction, 1000);
+        }
+        </script>
+
         </div>
 
 
