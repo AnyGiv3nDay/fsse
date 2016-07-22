@@ -224,6 +224,9 @@
               </div>
             </div>
 
+
+            <hr />
+
             <div class="form-group row">
               <div class="col-sm-1 stat" ng-repeat="stat in dweller.stats.stats">
                 <label ng-bind="statsName[$index]" class="center"></label>
@@ -232,6 +235,8 @@
                 <input type="number" class="form-control" ng-model="stat.value" min="0" max="10">
               </div>
             </div>
+
+            <hr />
 
             <div class="row save">
               <button type="button" class="btn btn-primary pull-right" ng-click="maxSpecial()">Max Stats</button>
@@ -285,7 +290,7 @@
         <a href="#" class="tab">Fallout Shelter - Save Editor</a>
         <a href="#shelter" ng-hide="!save.dwellers" class="tab" ng-click="section = 'vault'" ng-class="{ 'active': section == 'vault' }">Vault {{ save.vault.VaultName }}<small></small></a>
         <a href="#dweller" ng-hide="!save.dwellers" class="tab" ng-click="section = 'dwellers'" ng-class="{ 'active': section == 'dwellers' }">Dwellers <small>({{ save.dwellers.dwellers.length }})</small></a>
-        <a href="#extras" ng-hide="!save.dwellers" class="tab" ng-click="section = 'extras'" ng-class="{ 'active': section == 'extras' }">Extras </a>
+        <a href="#extras" ng-hide="!save.dwellers" class="tab" ng-click="section = 'extras'" ng-class="{ 'active': section == 'extras' }">Presets </a>
       </div>
 
       <div class="row save">

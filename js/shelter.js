@@ -735,7 +735,8 @@ app.controller('dwellerController', function ($scope) {
 
 function preset(preset, saveFileName){
 
-  if(isLoaded==true){
+  /*
+  if(isLoaded){
     if(window.location.href.indexOf("?") > -1){
       window.location.href = window.location.href.substring(0,window.location.href.indexOf("?")) +  "?preset=" + preset + "?savename=" + saveFileName;
     }else{
@@ -744,7 +745,8 @@ function preset(preset, saveFileName){
     }
     throw new Error("There already is a savefile loaded.")
 
-  }
+  }  */ // Why does this matter?
+
   file = "presets/" + preset + ".json";
 
   var xhr = new XMLHttpRequest();
