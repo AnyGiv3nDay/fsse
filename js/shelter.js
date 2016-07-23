@@ -30,6 +30,21 @@ function colorConverter(colorhex, mode)
   }
 }
 
+//lazy code addition, but I believe it is beneficial and not too invasive.
+function numberCheckHelper()
+{
+  $("input[type='number']").each(function()
+  {
+    if($(this).val === undefined || $(this).val().trim().length == 0 || $(this).val() == null)
+    {
+      var a = $(this).attr("min");
+      if(a === undefined) a = 0;
+      $(this).val(a);
+    }
+  });
+  setTimeout(numberCheckHelper, 3000);
+}
+
 function colortofos()
 {
     var colorhex = document.getElementsByClassName("jscolor")[0].value;
@@ -39,6 +54,7 @@ function colortofos()
 $(document).ready(function(){
 
 
+  numberCheckHelper();
   if(window.location.href.indexOf("?preset=") > -1 && window.location.href.indexOf("?savename=") > -1){
 
     urlPreset = window.location.href.substring(window.location.href.indexOf("?preset=")+8, window.location.href.indexOf("?savename="));
