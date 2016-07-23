@@ -23,7 +23,7 @@
             <div class="form-group row" ng-class="{ 'has-error': vaultForm.vaultName.$invalid }">
               <div class="col-sm-4">
                 <label>Name</label>
-                <input type="text" class="form-control" name="vaultName" placeholder="Vault Name" ng-model="save.vault.VaultName" ng-pattern="/^[0-9]{3}$/">
+                <input type="number" class="form-control" name="vaultName" placeholder="Vault Name" ng-model="vaultName" min="0" max="999">
               </div>
 
               <div class="col-sm-4">

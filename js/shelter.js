@@ -198,6 +198,7 @@ app.controller('dwellerController', function ($scope) {
     _handyCount = 0,
     _petCarrierCount = 0,
     _starterPackCount = 0,
+    _vaultName = -1,
     _skinColor = null,
     _hairColor = null,
     _firstName = null;
@@ -217,6 +218,20 @@ app.controller('dwellerController', function ($scope) {
         {
           $scope.dweller.name = val;
         }
+      }
+    });
+
+    Object.defineProperty($scope, 'vaultName', {
+      get: function () {
+        if(_vaultName == -1 && $scope.save !== undefined && $scope.save.vault !== undefined) _vaultName = parseInt($scope.save.vault.VaultName);
+        return _vaultName
+      },
+      set: function (val) {
+        if(val == null) val = 0;
+        _vaultName = val;
+        var str = "" + val;
+        while(str.length < 3) str = "0" + str;
+        $scope.save.vault.VaultName = str;
       }
     });
 
