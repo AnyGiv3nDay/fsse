@@ -3,22 +3,71 @@ var iv = sjcl.codec.hex.toBits("7475383967656A693334307438397532");
 sjcl.beware["CBC mode is dangerous because it doesn't protect message integrity."]();
 var isLoaded=false;
 
-$(document).ready(function(){
-  
+function colorHack()
+{
+  $('.jscolor').each(function() {
+    $(this).focus();
+  });
 
+  $("input").blur();
+}
+
+function colorConverter(colorhex, mode)
+{
+  var mode = ((mode === undefined) ? false : mode);
+  if(mode)
+  {
+
+    var hexColor = colorhex.toString(16).substring(2).toUpperCase();
+    return hexColor;
+  }
+  else
+  {
+    var colorfos;
+    var x = colorhex.substring(0, 0) + "FF" + colorhex.substring(0);
+    colorfos = parseInt(x, 16);
+    return colorfos;
+  }
+}
+
+//lazy code addition, but I believe it is beneficial and not too invasive.
+function numberCheckHelper()
+{
+  $("input[type='number']").each(function()
+  {
+    if($(this).val === undefined || $(this).val().trim().length == 0 || $(this).val() == null)
+    {
+      var a = $(this).attr("min");
+      if(a === undefined) a = 0;
+      $(this).val(a);
+    }
+  });
+  setTimeout(numberCheckHelper, 3000);
+}
+
+function colortofos()
+{
+    var colorhex = document.getElementsByClassName("jscolor")[0].value;
+    $(".value1").html(colorConverter(colorhex));
+}
+
+$(document).ready(function(){
+
+
+  numberCheckHelper();
   if(window.location.href.indexOf("?preset=") > -1 && window.location.href.indexOf("?savename=") > -1){
-       
+
     urlPreset = window.location.href.substring(window.location.href.indexOf("?preset=")+8, window.location.href.indexOf("?savename="));
     urlSaveName = window.location.href.substring(window.location.href.indexOf("?savename=")+10);
-   
+
     preset(urlPreset,urlSaveName);
-     
+
 
   }
 });
 
 function handleFileSelect(evt) {
-   
+
   try {
     evt.stopPropagation();
     evt.preventDefault();
@@ -54,25 +103,26 @@ function handleFileSelect(evt) {
   } finally {
     evt.target.value = null
   }
-   
+
 }
 
 function decrypt(evt, fileName, base64Str) {
-   
+
   var cipherBits = sjcl.codec.base64.toBits(base64Str);
   var prp = new sjcl.cipher.aes(key);
   var plainBits = sjcl.mode.cbc.decrypt(prp, cipherBits, iv);
   var jsonStr = sjcl.codec.utf8String.fromBits(plainBits);
   try {
+    document.getElementById("presetSaveName").value = fileName;
     edit(fileName, JSON.parse(jsonStr));
   } catch (e) {
     throw "Decrypted file does not contain valid JSON: " + e
   }
-   
+
 }
 
 function encrypt(fileName, save) {
-   
+
   var compactJsonStr = JSON.stringify(save);
   var plainBits = sjcl.codec.utf8String.toBits(compactJsonStr);
   var prp = new sjcl.cipher.aes(key);
@@ -85,17 +135,17 @@ function encrypt(fileName, save) {
 
   saveAs(blob, fileName.replace(".txt", ".sav").replace(".json", ".sav"))
 
-   
+
 }
 
 document.getElementById("sav_file").addEventListener("change", function (e) {
-   
+
   $('.box').removeClass('hover').addClass('ready');
   $('.instructions').hide();
 
-  
+
   handleFileSelect(e);
-   
+
 }, false);
 
 document.ondragover = document.ondrop = function (e) {
@@ -113,7 +163,7 @@ $('body .container .box')
     $('.instructions').show();
   })
   .on('drop', function (e) {
-       
+
     $('.box').removeClass('hover').addClass('ready');
     $('.instructions').hide();
 
@@ -134,14 +184,12 @@ $('body .container .box')
     e.preventDefault();
     return false;
 
-       
+
   });
 
 
 // Modifications
 function edit(fileName, save) {
-  
-   
   isLoaded=true;
   var scope = angular.element($('body').get(0)).scope();
 
@@ -149,8 +197,6 @@ function edit(fileName, save) {
     scope.save = save;
     scope.fileName = fileName;
   });
-
-   
 }
 
 var app = angular.module('shelter', []);
@@ -165,9 +211,66 @@ app.controller('dwellerController', function ($scope) {
 
   var _save = {},
     _lunchboxCount = 0,
-    _handyCount = 0;
-	_petCarrierCount = 0;
-    _starterPackCount = 0;
+    _handyCount = 0,
+    _petCarrierCount = 0,
+    _starterPackCount = 0,
+    _vaultName = -1,
+    _skinColor = null,
+    _hairColor = null,
+    _firstName = null;
+
+    Object.defineProperty($scope, 'firstName', {
+      get: function () {
+        return _firstName
+      },
+      set: function (val) {
+
+        _firstName = val;
+        if(val.trim().length == 0)
+        {
+          $scope.dweller.name = "Vault Dweller";
+        }
+        else
+        {
+          $scope.dweller.name = val;
+        }
+      }
+    });
+
+    Object.defineProperty($scope, 'vaultName', {
+      get: function () {
+        if(_vaultName == -1 && $scope.save !== undefined && $scope.save.vault !== undefined) _vaultName = parseInt($scope.save.vault.VaultName);
+        return _vaultName
+      },
+      set: function (val) {
+        if(val == null) val = 0;
+        _vaultName = val;
+        var str = "" + val;
+        while(str.length < 3) str = "0" + str;
+        $scope.save.vault.VaultName = str;
+      }
+    });
+
+    Object.defineProperty($scope, 'skinColor', {
+      get: function () {
+        return _skinColor
+      },
+      set: function (val) {
+        _skinColor = val;
+        $scope.dweller.skinColor = colorConverter(val);
+      }
+    });
+
+    Object.defineProperty($scope, 'hairColor', {
+      get: function () {
+        return _hairColor
+      },
+      set: function (val) {
+        _hairColor = val;
+        $scope.dweller.hairColor = colorConverter(val);
+      }
+    });
+
   Object.defineProperty($scope, 'save', {
     get: function () {
       return _save
@@ -200,7 +303,7 @@ app.controller('dwellerController', function ($scope) {
       updateCount();
     }
   });
-  
+
   Object.defineProperty($scope, 'petCarrierCount', {
     get: function () {
       return _petCarrierCount
@@ -211,7 +314,7 @@ app.controller('dwellerController', function ($scope) {
       updateCount();
     }
   });
-  
+
   Object.defineProperty($scope, 'starterPackCount', {
     get: function () {
       return _starterPackCount
@@ -222,19 +325,32 @@ app.controller('dwellerController', function ($scope) {
       updateCount();
     }
   });
-  
-  
+
+
 
   $scope.editDweller = function (dweller) {
     $scope.dweller = dweller;
+    _firstName = $scope.dweller.name;
+    _skinColor = colorConverter($scope.dweller.skinColor, true);
+    _hairColor = colorConverter($scope.dweller.hairColor, true);
+    setTimeout(colorHack, 200);
   };
-  
+
   $scope.maxhappinessAll = function () {
     var sum2 = Object.keys($scope.save.dwellers.dwellers).length;
     for(i=0; i<sum2; i++)
     $scope.save.dwellers.dwellers[i].happiness.happinessValue = 100;
   };
-  
+
+  $scope.healAll = function () {
+    var sum2 = Object.keys($scope.save.dwellers.dwellers).length;
+    for(i=0; i<sum2; i++)
+    {
+      $scope.save.dwellers.dwellers[i].health.radiationValue = 0;
+      $scope.save.dwellers.dwellers[i].health.healthValue = $scope.save.dwellers.dwellers[i].health.maxHealth;
+    }
+  };
+
   $scope.maxSpecialAll = function () {
     var sum2 = Object.keys($scope.save.dwellers.dwellers).length;
     for(i=0; i<sum2; i++)
@@ -251,7 +367,7 @@ app.controller('dwellerController', function ($scope) {
     $scope.dweller.stats.stats[6].value = 10;
     $scope.dweller.stats.stats[7].value = 10;
   };
-  
+
   $scope.removeRocks = function () {
     $scope.save.vault.rocks = [];
   };
@@ -261,17 +377,11 @@ app.controller('dwellerController', function ($scope) {
   };
 
   $scope.download = function () {
-    encrypt($scope.fileName, $scope.save);
+    encrypt(document.getElementById("presetSaveName").value, $scope.save);
   };
-  
-  $scope.colortofos = function () {
-      var colorhex = document.getElementsByClassName("jscolor")[0].value;
-      var colorfos;
-      var x = colorhex.substring(0, 0) + "FF" + colorhex.substring(0);
-      colorfos = parseInt(x, 16);
-      $(".value1").html(colorfos);
-  };
-  
+
+  $scope.colortofos = colortofos;
+
   $scope.unlockrooms = function () {
     $scope.save.unlockableMgr.objectivesInProgress = [];
     $scope.save.unlockableMgr.completed = [];
@@ -295,7 +405,7 @@ app.controller('dwellerController', function ($scope) {
       "HydroponicUnlock",
       "NukacolaUnlock"];
   };
-  
+
   $scope.unlockrecipes = function () {
       $scope.save.survivalW.recipes =[
       "Shotgun_Rusty",
@@ -603,7 +713,7 @@ app.controller('dwellerController', function ($scope) {
 
   function extractCount() {
 
-    
+
     if ($scope.save.vault.LunchBoxesByType.toString().indexOf("0") > -1){
       _lunchboxCount = $scope.save.vault.LunchBoxesByType.toString().match(/0/g).length;
     } else {
@@ -621,7 +731,7 @@ app.controller('dwellerController', function ($scope) {
     } else {
       _petCarrierCount = 0;
     }
-    
+
     if ($scope.save.vault.LunchBoxesByType.toString().indexOf("3") > -1){
       _starterPackCount = $scope.save.vault.LunchBoxesByType.toString().match(/3/g).length;
     } else {
@@ -634,11 +744,11 @@ app.controller('dwellerController', function ($scope) {
     $scope.petCarrierCount = _petCarrierCount;
     $scope.starterPackCount = _starterPackCount;
 
-   
+
   }
 
   function updateCount() {
-       
+
     var types = $scope.save.vault.LunchBoxesByType = [],
     count = $scope.save.vault.LunchBoxesCount = _lunchboxCount + _handyCount + _petCarrierCount + _starterPackCount;
 
@@ -653,7 +763,7 @@ app.controller('dwellerController', function ($scope) {
     for (var i = 0; i < _petCarrierCount; i++){
       types.push(2);
     }
-    
+
     for (var i = 0; i < _starterPackCount; i++){
       types.push(3);
     }
@@ -665,8 +775,9 @@ app.controller('dwellerController', function ($scope) {
 
 
 function preset(preset, saveFileName){
-   
-  if(isLoaded==true){
+
+  /*
+  if(isLoaded){
     if(window.location.href.indexOf("?") > -1){
       window.location.href = window.location.href.substring(0,window.location.href.indexOf("?")) +  "?preset=" + preset + "?savename=" + saveFileName;
     }else{
@@ -675,28 +786,29 @@ function preset(preset, saveFileName){
     }
     throw new Error("There already is a savefile loaded.")
 
-  }
+  }  */ // Why does this matter?
+
   file = "presets/" + preset + ".json";
 
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = readPreset;
-  
+
   xhr.open("GET", file, true);
   xhr.send();
 
 
   function readPreset()
   {
-     
+
     if (xhr.readyState == 4) {
       var resp = JSON.parse(xhr.responseText);
       $('.instructions').hide();
-      edit(saveFileName, resp);
 
+      edit(saveFileName, resp);
     }
-     
+
   };
 
-  
-   
+
+
 }

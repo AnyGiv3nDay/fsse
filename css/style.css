@@ -7,7 +7,6 @@ body {
   background-image: url(../background.jpg);
   background-size: cover;
   background-position: center;
-    background-attachment: fixed;
 }
 
 body > .container {
@@ -15,7 +14,7 @@ body > .container {
   width: 800px;
   margin: -225px 0 0 -400px;
   position: absolute;
-  top: 240px;
+  top: 50%;
   left: 50%;
   padding: 0;
 }
@@ -68,7 +67,7 @@ a.tab:focus {
 .box {
   margin-top: 30px;
   margin-bottom: 10px;
-  height: 370px;
+  height: 410px;
   width: 100%;
   border: 4px solid #467bb7;
   border-radius: 10px;
@@ -141,6 +140,7 @@ a.tab:focus {
 .stat input.form-control {
   padding: 5px;
   text-align: center;
+
 }
 
 .stat .bar {
@@ -220,7 +220,7 @@ a.tab:focus {
 
 .instructions input {
   display: inline-block;
-  
+  max-width: 95px;
 }
 
 .boy {
