@@ -111,12 +111,6 @@
 
             <div class="form-group row">
               <div class="col-sm-4">
-                <label>Save app Version:</label><label ng-bind="save.appVersion"></label>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <div class="col-sm-4">
                 <label>Remove Rocks</label><br />
                 <button type="button" class="btn btn-primary" ng-click="removeRocks()">Activate</button>
               </div>
@@ -144,6 +138,12 @@
               <label>Heal All Dwellers</label><br />
                <button type="button" class="btn btn-primary" ng-click="healAll()">Activate</button>
             </div>
+            </div>
+            
+            <div class="form-group row">
+              <div class="col-sm-4">
+                <label>Save app Version:</label><label ng-bind="save.appVersion"></label>
+              </div>
             </div>
 
           </form>
@@ -259,34 +259,6 @@
 
       <div class="row box" ng-show="section == 'extras'">
       <div class="col-sm-12 vault_info">
-      <form>
-      <div class="form-group row">
-
-
-        <div class="col-sm-3">
-          <label>New Save</label><br />
-          <button class="btn" onclick="preset('NewSave', document.getElementById('presetSaveName').value)">Activate</button>
-        </div>
-
-        <div class="col-sm-3">
-            <label>All 9999</label><br />
-          <button class="btn" onclick="preset('Stats9999', document.getElementById('presetSaveName').value)">Activate</button>
-        </div>
-        <div class="col-sm-3">
-            <label>Super Dwellers</label><br />
-          <button class="btn" onclick="preset('SuperDwellers', document.getElementById('presetSaveName').value)">Activate</button>
-        </div>
-        <div class="col-sm-3">
-            <label>Super Hack</label><br />
-          <button class="btn" onclick="preset('SuperHack', document.getElementById('presetSaveName').value)">Activate</button>
-        </div>
-
-        </div>
-
-        </form>
-
-
-      <hr />
 
       <label title="Savefile names can only be 'Vault1.sav', 'Vault2.sav' or 'Vault3.sav'">Savefile Name: </label> <input type="text" name="presetSaveName" id="presetSaveName" placeholder="Vault1.sav" value="Vault2.sav" ><br>
 
@@ -305,7 +277,7 @@
         <a href="#" class="tab">Fallout Shelter - Save Editor</a>
         <a href="#shelter" ng-hide="!save.dwellers" class="tab" ng-click="section = 'vault'" ng-class="{ 'active': section == 'vault' }">Vault {{ save.vault.VaultName }}<small></small></a>
         <a href="#dweller" ng-hide="!save.dwellers" class="tab" ng-click="section = 'dwellers'" ng-class="{ 'active': section == 'dwellers' }">Dwellers <small>({{ save.dwellers.dwellers.length }})</small></a>
-        <a href="#extras" ng-hide="!save.dwellers" class="tab" ng-click="section = 'extras'" ng-class="{ 'active': section == 'extras' }">Presets &amp; Extras</a>
+        <a href="#extras" ng-hide="!save.dwellers" class="tab" ng-click="section = 'extras'" ng-class="{ 'active': section == 'extras' }">Extras</a>
       </div>
 
       <div class="row save">
@@ -316,7 +288,7 @@
         Drag a save file here (e.g. Vault1.sav) <br />
         or select one here <input type="file" id="sav_file" name="sav_file" />
         <br /><br/><br />
-        For the PC Version the save is in "Documents\My Games\Fallout Shelter"
+        For the PC Version the save is in<br /> "Documents\My Games\Fallout Shelter"
       </div>
 
 
