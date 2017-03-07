@@ -379,6 +379,14 @@ app.controller('dwellerController', function ($scope) {
   $scope.download = function () {
     encrypt(document.getElementById("presetSaveName").value, $scope.save);
   };
+  
+  $scope.clearemergency = function () {
+    var sum2 = Object.keys($scope.save.vault.rooms).length;
+    for(i=0; i<sum2; i++)
+    {
+      $scope.save.vault.rooms[i].currentStateName = "Idle";
+    }
+  };
 
   $scope.colortofos = colortofos;
 
