@@ -391,6 +391,15 @@ app.controller('dwellerController', function ($scope) {
   $scope.removedwellersWaiting = function () {
     $scope.save.dwellerSpawner.dwellersWaiting = [];
   };
+  
+  $scope.unlockthemes = function () {
+    var sum2 = Object.keys($scope.save.survivalW.collectedThemes.themeList).length;
+    for(i=0; i<sum2; i++)
+    {
+      $scope.save.survivalW.collectedThemes.themeList[i].extraData.partsCollectedCount = 9;
+      $scope.save.survivalW.collectedThemes.themeList[i].extraData.IsNew = true;
+    }
+  };
 
   $scope.colortofos = colortofos;
 
@@ -415,7 +424,8 @@ app.controller('dwellerController', function ($scope) {
       "PowerPlantUnlock",
       "WaterroomUnlock",
       "HydroponicUnlock",
-      "NukacolaUnlock"];
+      "NukacolaUnlock",
+      "DesignFactoryUnlock"];
   };
 
   $scope.unlockrecipes = function () {
