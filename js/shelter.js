@@ -387,6 +387,10 @@ app.controller('dwellerController', function ($scope) {
       $scope.save.vault.rooms[i].currentStateName = "Idle";
     }
   };
+  
+  $scope.removedwellersWaiting = function () {
+    $scope.save.dwellerSpawner.dwellersWaiting = [];
+  };
 
   $scope.colortofos = colortofos;
 
