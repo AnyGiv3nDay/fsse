@@ -11,8 +11,8 @@ body {
 
 body > .container {
   height: 450px;
-  width: 800px;
-  margin: -225px 0 0 -400px;
+  width: 900px;
+  margin: -225px 0 0 -450px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -97,6 +97,7 @@ a.tab:focus {
 }
 
 .dweller_info,
+.wasteland_info,
 .vault_info {
   height: 100%;
   padding: 15px 15px 15px 0;
@@ -285,7 +286,8 @@ a.list-group-item, a.list-group-item, button.list-group-item, button.list-group-
     z-index: 0;
   }
 
-  .dweller_info {
+  .dweller_info,
+  .wasteland_info {
     position: absolute;
     top: 0;
 
@@ -300,7 +302,8 @@ a.list-group-item, a.list-group-item, button.list-group-item, button.list-group-
     float: left;
   }
 
-  .dweller_info.close {
+  .dweller_info.close,
+  .wasteland_info.close {
     display: none;
   }
 

@@ -208,6 +208,11 @@ app.controller('dwellerController', function ($scope) {
   $scope.fileName = '';
   $scope.dweller = {};
   $scope.statsName = ['Unknown', 'S.', 'P.', 'E.', 'C.', 'I.', 'A.', 'L.'];
+  
+  $scope.wastelandTeams = [];
+  $scope.wastelandTeams2 = [];
+  $scope.team = {};
+  $scope.actor = {};
 
   var _save = {},
     _lunchboxCount = 0,
@@ -279,6 +284,7 @@ app.controller('dwellerController', function ($scope) {
       _save = val;
 
       extractCount();
+      extractTeams();
     }
   });
 
@@ -325,7 +331,39 @@ app.controller('dwellerController', function ($scope) {
       updateCount();
     }
   });
+  
+  Object.defineProperty($scope, 'elapsedTimeAliveExploring', {
+    get: function () {
+      return $scope.team.elapsedTimeAliveExploring;
+    },
+    set: function (val) {
+      $scope.team.elapsedTimeAliveExploring = val;
 
+      updateTeam();
+    }
+  });
+
+  Object.defineProperty($scope, 'returnTripDuration', {
+    get: function () {
+      return $scope.team.returnTripDuration;
+    },
+    set: function (val) {
+      $scope.team.returnTripDuration = val;
+
+      updateTeam();
+    }
+  });
+  
+  Object.defineProperty($scope, 'teamEquipment', {
+    get: function () {
+      return $scope.team.teamEquipment;
+    },
+    set: function (val) {
+      $scope.team.teamEquipment = val;
+
+      updateTeam();
+    }
+  });
 
 
   $scope.editDweller = function (dweller) {
@@ -374,6 +412,14 @@ app.controller('dwellerController', function ($scope) {
 
   $scope.closeDweller = function (dweller) {
     $scope.dweller = {};
+  };
+  
+  $scope.editTeam = function (team) {
+    $scope.team = team;
+  };
+
+  $scope.closeTeam = function () {
+    $scope.team = {};
   };
 
   $scope.download = function () {
@@ -790,6 +836,59 @@ app.controller('dwellerController', function ($scope) {
       types.push(3);
     }
 
+  }
+  
+  function extractTeams() {
+    $scope.save.vault.wasteland.teams.forEach(function (team) {
+      $scope.wastelandTeams.push({
+        teamIndex: team.teamIndex,
+        dweller: findDweller(team.dwellers[0]),
+        elapsedTimeAliveExploring: team.elapsedTimeAliveExploring,
+        returnTripDuration: team.returnTripDuration,
+        teamEquipment: team.teamEquipment
+      });
+      $scope.wastelandTeams2.push({
+        teamIndex: team.teamIndex,
+        actor: findActor(team.actors[0]),
+        elapsedTimeAliveExploring: team.elapsedTimeAliveExploring,
+        returnTripDuration: team.returnTripDuration,
+        teamEquipment: team.teamEquipment
+      });
+    });
+  }
+  
+  function findDweller(id) {
+    var dweller = null;
+
+    $scope.save.dwellers.dwellers.forEach(function (d) {
+      if (d.serializeId == id) {
+        dweller = d;
+      }
+    });
+
+    return dweller;
+  }
+  
+  function findActor(id) {
+    var actor = null;
+
+    $scope.save.dwellers.actors.forEach(function (d) {
+      if (d.serializeId == id) {
+        actor = d;
+      }
+    });
+
+    return actor;
+  }
+
+  function updateTeam() {
+    $scope.save.vault.wasteland.teams.forEach(function (team) {
+      if (team.teamIndex == $scope.team.teamIndex) {
+        team.elapsedTimeAliveExploring = $scope.team.elapsedTimeAliveExploring;
+        team.returnTripDuration = $scope.team.returnTripDuration;
+        team.teamEquipment = $scope.team.teamEquipment;
+      }
+    });
   }
 
 });
