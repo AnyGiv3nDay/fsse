@@ -1212,8 +1212,8 @@ function handleFileSelect(evt) {
         evt.preventDefault();
         var f = evt.target.files[0];
         var fileName = f.name;
-        if (f.size > 1e7) {
-            throw "File exceeds maximum size of 10MB"
+        if (f.size > 3e7) {
+            throw "File exceeds maximum size of 30MB"
         }
         if (f) {
             var reader = new FileReader;
