@@ -6,7 +6,7 @@ body {
 body {
   background-image: url(../bg.png);
   background-size: cover;
-  background-position: center;
+  background-color: #000000;
 }
 
 body > .container {
@@ -97,6 +97,7 @@ a.tab:focus {
 }
 
 .dweller_info,
+.other_info,
 .wasteland_info,
 .vault_info {
   height: 100%;
@@ -287,6 +288,7 @@ a.list-group-item, a.list-group-item, button.list-group-item, button.list-group-
   }
 
   .dweller_info,
+  .other_info,
   .wasteland_info {
     position: absolute;
     top: 0;
@@ -303,6 +305,7 @@ a.list-group-item, a.list-group-item, button.list-group-item, button.list-group-
   }
 
   .dweller_info.close,
+  .other_info.close,
   .wasteland_info.close {
     display: none;
   }

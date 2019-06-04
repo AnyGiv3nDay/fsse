@@ -174,8 +174,8 @@ Copyright (C) 2017
             </div>
 
             <div class="col-sm-4">
-              <label>Remove Dwellers Waiting</label><br />
-              <button type="button" class="btn btn-primary" ng-click="removedwellersWaiting()">Activate</button>
+              <label>Accept all Dwellers Waiting</label><br />
+              <button type="button" class="btn btn-primary" ng-click="acceptdwellersWaiting()">Activate</button>
             </div>
 
             <div class="col-sm-4">
@@ -322,6 +322,36 @@ Copyright (C) 2017
           <br>
         </form>
 
+      </div>
+    </div>
+
+    <div class="row box" ng-show="section == 'Others'">
+      <div class="Others list-group col-sm-4">
+        <a ng-repeat="o in save.dwellers.actors" ng-click="editOthers(o);" ng-class="{ 'active': other == o }"
+          class="list-group-item">{{ o.name }}</a>
+      </div>
+      <div class="other_info col-sm-8" ng-hide="!other.name">
+        <a href="#" class="back_button glyphicon glyphicon-chevron-left" ng-click="closeOther()">Back</a>
+        <form name="otherForm">
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>Name</label>
+              <input type="text" class="form-control" name="otherName" placeholder="Name"
+                ng-model="otherName">
+            </div>
+    
+            <div class="col-sm-4">
+              <label>Health</label>
+              <input type="number" class="form-control" name="healthother" min="0" ng-model="other.health">
+            </div>
+    
+            <div class="col-sm-4">
+              <label>Is Death?</label>
+              <select class="form-control" name="death" ng-model="other.death"
+                ng-options="o.v as o.n for o in [{ n: 'Not Death', v: false }, { n: 'Death', v: true }]"></select>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
 
@@ -477,18 +507,19 @@ Copyright (C) 2017
       </div>
     </div>
 
-
     <div class="row tabs">
-      <a href="#" class="tab">Fallout Shelter - Save Editor</a>
-      <a href="#shelter" ng-hide="!save.dwellers" class="tab" ng-click="section = 'vault'"
+      <a href="" class="tab">Fallout Shelter - Save Editor</a>
+      <a href="" ng-hide="!save.dwellers" class="tab" ng-click="section = 'vault'"
         ng-class="{ 'active': section == 'vault' }">Vault {{ save.vault.VaultName }}<small></small></a>
-      <a href="#dweller" ng-hide="!save.dwellers" class="tab" ng-click="section = 'dwellers'"
+      <a href="" ng-hide="!save.dwellers" class="tab" ng-click="section = 'dwellers'"
         ng-class="{ 'active': section == 'dwellers' }">Dwellers <small>({{ save.dwellers.dwellers.length }})</small></a>
-      <a href="#wastelandD" ng-hide="!wastelandTeams.length" class="tab" ng-click="section = 'wastelandD'"
+      <a href="" ng-hide="!save.dwellers" class="tab" ng-click="section = 'Others'"
+        ng-class="{ 'active': section == 'Others' }">Others <small>({{ save.dwellers.actors.length }})</small></a>
+      <a href="" ng-hide="!wastelandTeams.length" class="tab" ng-click="section = 'wastelandD'"
         ng-class="{ 'active': section == 'wastelandD' }">WastelandD <small>({{ wastelandTeams.length }})</small></a>
-      <a href="#wastelandH" ng-hide="!wastelandTeams2.length" class="tab" ng-click="section = 'wastelandH'"
+      <a href="" ng-hide="!wastelandTeams2.length" class="tab" ng-click="section = 'wastelandH'"
         ng-class="{ 'active': section == 'wastelandH' }">WastelandH <small>({{ wastelandTeams2.length }})</small></a>
-      <a href="#extras" ng-hide="!save.dwellers" class="tab" ng-click="section = 'extras'"
+      <a href="" ng-hide="!save.dwellers" class="tab" ng-click="section = 'extras'"
         ng-class="{ 'active': section == 'extras' }">Extras</a>
     </div>
 
@@ -499,7 +530,7 @@ Copyright (C) 2017
     <div class="instructions">
       <p>Large Files can take more time to load!</p>
       Drag a save file here (e.g. Vault1.sav) <br />
-      or select one here <input type="file" id="sav_file" name="sav_file" />
+      or select one here: <br /><input type="file" id="sav_file" name="sav_file" />
       <br /><br /><br />
       For PC/Launcher Version the save is in:<br /> "Documents\My Games\Fallout Shelter"
       <br />
@@ -516,10 +547,10 @@ Copyright (C) 2017
 
 
     <br /><br />
-    <center><a style="color: #00ff00;" href="https://github.com/rakion99/shelter-editor"><strong>Click to View Source
+    <center><a style="color: #00FFff; background-color: rgb(122, 122, 122);" href="https://github.com/rakion99/shelter-editor"><strong>Click to View Source
           Code</strong></a></center>
     <br>
-    <center><b><a style="color: #00ff00;" href="SaveDecrypt.html">Fallout Shelter Save Decryptor</a></b></center>
+    <center><b><a style="color: #ffffff; background-color: rgb(122, 122, 122);" href="SaveDecrypt.html">Fallout Shelter Save Decryptor</a></b></center>
     <br /><br /><span style="color: #00ff00;"><strong>Fallout Shelter content and materials are trademarks and
         copyrights of Bethesda and its licensors. All rights reserved.
         <br />This site is a part of Internet. and is not affiliated with Bethesda.</strong></span>
