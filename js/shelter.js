@@ -222,6 +222,7 @@ app.controller('dwellerController', function ($scope) {
     _vaultName = -1,
     _skinColor = null,
     _hairColor = null,
+    _outfitColor = null,
     _firstName = null;
 
     Object.defineProperty($scope, 'firstName', {
@@ -273,6 +274,16 @@ app.controller('dwellerController', function ($scope) {
       set: function (val) {
         _hairColor = val;
         $scope.dweller.hairColor = colorConverter(val);
+      }
+    });
+    
+    Object.defineProperty($scope, 'outfitColor', {
+      get: function () {
+        return _outfitColor
+      },
+      set: function (val) {
+        _outfitColor = val;
+        $scope.dweller.outfitColor = colorConverter(val);
       }
     });
 
@@ -371,6 +382,7 @@ app.controller('dwellerController', function ($scope) {
     _firstName = $scope.dweller.name;
     _skinColor = colorConverter($scope.dweller.skinColor, true);
     _hairColor = colorConverter($scope.dweller.hairColor, true);
+    _outfitColor = colorConverter($scope.dweller.outfitColor, true);
     setTimeout(colorHack, 200);
   };
 
