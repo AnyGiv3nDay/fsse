@@ -1,28 +1,24 @@
 var key = [2815074099, 1725469378, 4039046167, 874293617, 3063605751, 3133984764, 4097598161, 3620741625];
 var iv = sjcl.codec.hex.toBits("7475383967656A693334307438397532");
 sjcl.beware["CBC mode is dangerous because it doesn't protect message integrity."]();
-var isLoaded=false;
+var isLoaded = false;
 
-function colorHack()
-{
-  $('.jscolor').each(function() {
+function colorHack() {
+  $('.jscolor').each(function () {
     $(this).focus();
   });
 
   $("input").blur();
 }
 
-function colorConverter(colorhex, mode)
-{
+function colorConverter(colorhex, mode) {
   var mode = ((mode === undefined) ? false : mode);
-  if(mode)
-  {
+  if (mode) {
 
     var hexColor = colorhex.toString(16).substring(2).toUpperCase();
     return hexColor;
   }
-  else
-  {
+  else {
     var colorfos;
     var x = colorhex.substring(0, 0) + "FF" + colorhex.substring(0);
     colorfos = parseInt(x, 16);
@@ -31,43 +27,32 @@ function colorConverter(colorhex, mode)
 }
 
 //lazy code addition, but I believe it is beneficial and not too invasive.
-function numberCheckHelper()
-{
-  $("input[type='number']").each(function()
-  {
-    if($(this).val === undefined || $(this).val().trim().length == 0 || $(this).val() == null)
-    {
+function numberCheckHelper() {
+  $("input[type='number']").each(function () {
+    if ($(this).val === undefined || $(this).val().trim().length == 0 || $(this).val() == null) {
       var a = $(this).attr("min");
-      if(a === undefined) a = 0;
+      if (a === undefined) a = 0;
       $(this).val(a);
     }
   });
   setTimeout(numberCheckHelper, 3000);
 }
 
-function colortofos()
-{
-    var colorhex = document.getElementsByClassName("jscolor")[0].value;
-    $(".value1").html(colorConverter(colorhex));
+function colortofos() {
+  var colorhex = document.getElementsByClassName("jscolor")[0].value;
+  $(".value1").html(colorConverter(colorhex));
 }
 
-$(document).ready(function(){
-
-
+$(document).ready(function () {
   numberCheckHelper();
-  if(window.location.href.indexOf("?preset=") > -1 && window.location.href.indexOf("?savename=") > -1){
-
-    urlPreset = window.location.href.substring(window.location.href.indexOf("?preset=")+8, window.location.href.indexOf("?savename="));
-    urlSaveName = window.location.href.substring(window.location.href.indexOf("?savename=")+10);
-
-    preset(urlPreset,urlSaveName);
-
-
+  if (window.location.href.indexOf("?preset=") > -1 && window.location.href.indexOf("?savename=") > -1) {
+    urlPreset = window.location.href.substring(window.location.href.indexOf("?preset=") + 8, window.location.href.indexOf("?savename="));
+    urlSaveName = window.location.href.substring(window.location.href.indexOf("?savename=") + 10);
+    preset(urlPreset, urlSaveName);
   }
 });
 
 function handleFileSelect(evt) {
-
   try {
     evt.stopPropagation();
     evt.preventDefault();
@@ -103,11 +88,9 @@ function handleFileSelect(evt) {
   } finally {
     evt.target.value = null
   }
-
 }
 
 function decrypt(evt, fileName, base64Str) {
-
   var cipherBits = sjcl.codec.base64.toBits(base64Str);
   var prp = new sjcl.cipher.aes(key);
   var plainBits = sjcl.mode.cbc.decrypt(prp, cipherBits, iv);
@@ -118,11 +101,9 @@ function decrypt(evt, fileName, base64Str) {
   } catch (e) {
     throw "Decrypted file does not contain valid JSON: " + e
   }
-
 }
 
 function encrypt(fileName, save) {
-
   var compactJsonStr = JSON.stringify(save);
   var plainBits = sjcl.codec.utf8String.toBits(compactJsonStr);
   var prp = new sjcl.cipher.aes(key);
@@ -131,21 +112,13 @@ function encrypt(fileName, save) {
   var blob = new Blob([base64Str], {
     type: "text/plain"
   });
-
-
   saveAs(blob, fileName.replace(".txt", ".sav").replace(".json", ".sav"))
-
-
 }
 
 document.getElementById("sav_file").addEventListener("change", function (e) {
-
   $('.box').removeClass('hover').addClass('ready');
   $('.instructions').hide();
-
-
   handleFileSelect(e);
-
 }, false);
 
 document.ondragover = document.ondrop = function (e) {
@@ -163,14 +136,11 @@ $('body .container .box')
     $('.instructions').show();
   })
   .on('drop', function (e) {
-
     $('.box').removeClass('hover').addClass('ready');
     $('.instructions').hide();
-
     var file = e.originalEvent.dataTransfer.files[0],
       fileName = file.name,
       reader = new FileReader();
-
     reader.onload = function (ev) {
       try {
         decrypt(ev, fileName, reader.result);
@@ -178,21 +148,16 @@ $('body .container .box')
         alert("Error: " + err);
       }
     };
-
     reader.readAsText(file);
-
     e.preventDefault();
     return false;
-
-
   });
 
 
 // Modifications
 function edit(fileName, save) {
-  isLoaded=true;
+  isLoaded = true;
   var scope = angular.element($('body').get(0)).scope();
-
   scope.$apply(function () {
     scope.save = save;
     scope.fileName = fileName;
@@ -202,13 +167,12 @@ function edit(fileName, save) {
 var app = angular.module('shelter', []);
 
 app.controller('dwellerController', function ($scope) {
-
   $scope.section = 'vault';
 
   $scope.fileName = '';
   $scope.dweller = {};
   $scope.statsName = ['Unknown', 'S.', 'P.', 'E.', 'C.', 'I.', 'A.', 'L.'];
-  
+
   $scope.wastelandTeams = [];
   $scope.wastelandTeams2 = [];
   $scope.team = {};
@@ -581,57 +545,54 @@ app.controller('dwellerController', function ($scope) {
     _hairColor = null,
     _firstName = null;
 
-    Object.defineProperty($scope, 'firstName', {
-      get: function () {
-        return _firstName
-      },
-      set: function (val) {
-
-        _firstName = val;
-        if(val.trim().length == 0)
-        {
-          $scope.dweller.name = "Vault Dweller";
-        }
-        else
-        {
-          $scope.dweller.name = val;
-        }
+  Object.defineProperty($scope, 'firstName', {
+    get: function () {
+      return _firstName
+    },
+    set: function (val) {
+      _firstName = val;
+      if (val.trim().length == 0) {
+        $scope.dweller.name = "Vault Dweller";
       }
-    });
-
-    Object.defineProperty($scope, 'vaultName', {
-      get: function () {
-        if(_vaultName == -1 && $scope.save !== undefined && $scope.save.vault !== undefined) _vaultName = parseInt($scope.save.vault.VaultName);
-        return _vaultName
-      },
-      set: function (val) {
-        if(val == null) val = 0;
-        _vaultName = val;
-        var str = "" + val;
-        while(str.length < 3) str = "0" + str;
-        $scope.save.vault.VaultName = str;
+      else {
+        $scope.dweller.name = val;
       }
-    });
+    }
+  });
 
-    Object.defineProperty($scope, 'skinColor', {
-      get: function () {
-        return _skinColor
-      },
-      set: function (val) {
-        _skinColor = val;
-        $scope.dweller.skinColor = colorConverter(val);
-      }
-    });
+  Object.defineProperty($scope, 'vaultName', {
+    get: function () {
+      if (_vaultName == -1 && $scope.save !== undefined && $scope.save.vault !== undefined) _vaultName = parseInt($scope.save.vault.VaultName);
+      return _vaultName
+    },
+    set: function (val) {
+      if (val == null) val = 0;
+      _vaultName = val;
+      var str = "" + val;
+      while (str.length < 3) str = "0" + str;
+      $scope.save.vault.VaultName = str;
+    }
+  });
 
-    Object.defineProperty($scope, 'hairColor', {
-      get: function () {
-        return _hairColor
-      },
-      set: function (val) {
-        _hairColor = val;
-        $scope.dweller.hairColor = colorConverter(val);
-      }
-    });
+  Object.defineProperty($scope, 'skinColor', {
+    get: function () {
+      return _skinColor
+    },
+    set: function (val) {
+      _skinColor = val;
+      $scope.dweller.skinColor = colorConverter(val);
+    }
+  });
+
+  Object.defineProperty($scope, 'hairColor', {
+    get: function () {
+      return _hairColor
+    },
+    set: function (val) {
+      _hairColor = val;
+      $scope.dweller.hairColor = colorConverter(val);
+    }
+  });
 
   Object.defineProperty($scope, 'save', {
     get: function () {
@@ -639,7 +600,6 @@ app.controller('dwellerController', function ($scope) {
     },
     set: function (val) {
       _save = val;
-
       extractCount();
       extractTeams();
     }
@@ -651,7 +611,6 @@ app.controller('dwellerController', function ($scope) {
     },
     set: function (val) {
       _lunchboxCount = val;
-
       updateCount();
     }
   });
@@ -662,7 +621,6 @@ app.controller('dwellerController', function ($scope) {
     },
     set: function (val) {
       _handyCount = val;
-
       updateCount();
     }
   });
@@ -673,7 +631,6 @@ app.controller('dwellerController', function ($scope) {
     },
     set: function (val) {
       _petCarrierCount = val;
-
       updateCount();
     }
   });
@@ -684,18 +641,16 @@ app.controller('dwellerController', function ($scope) {
     },
     set: function (val) {
       _starterPackCount = val;
-
       updateCount();
     }
   });
-  
+
   Object.defineProperty($scope, 'elapsedTimeAliveExploring', {
     get: function () {
       return $scope.team.elapsedTimeAliveExploring;
     },
     set: function (val) {
       $scope.team.elapsedTimeAliveExploring = val;
-
       updateTeam();
     }
   });
@@ -706,18 +661,16 @@ app.controller('dwellerController', function ($scope) {
     },
     set: function (val) {
       $scope.team.returnTripDuration = val;
-
       updateTeam();
     }
   });
-  
+
   Object.defineProperty($scope, 'teamEquipment', {
     get: function () {
       return $scope.team.teamEquipment;
     },
     set: function (val) {
       $scope.team.teamEquipment = val;
-
       updateTeam();
     }
   });
@@ -733,14 +686,13 @@ app.controller('dwellerController', function ($scope) {
 
   $scope.maxhappinessAll = function () {
     var sum2 = Object.keys($scope.save.dwellers.dwellers).length;
-    for(i=0; i<sum2; i++)
-    $scope.save.dwellers.dwellers[i].happiness.happinessValue = 100;
+    for (i = 0; i < sum2; i++)
+      $scope.save.dwellers.dwellers[i].happiness.happinessValue = 100;
   };
 
   $scope.healAll = function () {
     var sum2 = Object.keys($scope.save.dwellers.dwellers).length;
-    for(i=0; i<sum2; i++)
-    {
+    for (i = 0; i < sum2; i++) {
       $scope.save.dwellers.dwellers[i].health.radiationValue = 0;
       $scope.save.dwellers.dwellers[i].health.healthValue = $scope.save.dwellers.dwellers[i].health.maxHealth;
     }
@@ -748,9 +700,9 @@ app.controller('dwellerController', function ($scope) {
 
   $scope.maxSpecialAll = function () {
     var sum2 = Object.keys($scope.save.dwellers.dwellers).length;
-    for(i=0; i<sum2; i++)
-    for(i2=0; i2<8; i2++)
-    $scope.save.dwellers.dwellers[i].stats.stats[i2].value = 10;
+    for (i = 0; i < sum2; i++)
+      for (i2 = 0; i2 < 8; i2++)
+        $scope.save.dwellers.dwellers[i].stats.stats[i2].value = 10;
   };
 
   $scope.maxSpecial = function () {
@@ -770,7 +722,7 @@ app.controller('dwellerController', function ($scope) {
   $scope.closeDweller = function (dweller) {
     $scope.dweller = {};
   };
-  
+
   $scope.editTeam = function (team) {
     $scope.team = team;
   };
@@ -782,23 +734,21 @@ app.controller('dwellerController', function ($scope) {
   $scope.download = function () {
     encrypt(document.getElementById("presetSaveName").value, $scope.save);
   };
-  
+
   $scope.clearemergency = function () {
     var sum2 = Object.keys($scope.save.vault.rooms).length;
-    for(i=0; i<sum2; i++)
-    {
+    for (i = 0; i < sum2; i++) {
       $scope.save.vault.rooms[i].currentStateName = "Idle";
     }
   };
-  
+
   $scope.removedwellersWaiting = function () {
     $scope.save.dwellerSpawner.dwellersWaiting = [];
   };
-  
+
   $scope.unlockthemes = function () {
     var sum2 = Object.keys($scope.save.survivalW.collectedThemes.themeList).length;
-    for(i=0; i<sum2; i++)
-    {
+    for (i = 0; i < sum2; i++) {
       $scope.save.survivalW.collectedThemes.themeList[i].extraData.partsCollectedCount = 9;
       $scope.save.survivalW.collectedThemes.themeList[i].extraData.IsNew = true;
     }
@@ -832,7 +782,7 @@ app.controller('dwellerController', function ($scope) {
   };
 
   $scope.unlockrecipes = function () {
-      $scope.save.survivalW.recipes =[
+    $scope.save.survivalW.recipes = [
       "Shotgun_Rusty",
       "Railgun",
       "LaserPistol_Focused",
@@ -1137,64 +1087,57 @@ app.controller('dwellerController', function ($scope) {
   }
 
   function extractCount() {
-
-
-    if ($scope.save.vault.LunchBoxesByType.toString().indexOf("0") > -1){
+    if ($scope.save.vault.LunchBoxesByType.toString().indexOf("0") > -1) {
       _lunchboxCount = $scope.save.vault.LunchBoxesByType.toString().match(/0/g).length;
     } else {
       _lunchboxCount = 0;
     }
 
-    if ($scope.save.vault.LunchBoxesByType.toString().indexOf("1") > -1){
+    if ($scope.save.vault.LunchBoxesByType.toString().indexOf("1") > -1) {
       _handyCount = $scope.save.vault.LunchBoxesByType.toString().match(/1/g).length;
     } else {
       _handyCount = 0;
     }
 
-    if ($scope.save.vault.LunchBoxesByType.toString().indexOf("2") > -1){
+    if ($scope.save.vault.LunchBoxesByType.toString().indexOf("2") > -1) {
       _petCarrierCount = $scope.save.vault.LunchBoxesByType.toString().match(/2/g).length;
     } else {
       _petCarrierCount = 0;
     }
 
-    if ($scope.save.vault.LunchBoxesByType.toString().indexOf("3") > -1){
+    if ($scope.save.vault.LunchBoxesByType.toString().indexOf("3") > -1) {
       _starterPackCount = $scope.save.vault.LunchBoxesByType.toString().match(/3/g).length;
     } else {
       _starterPackCount = 0;
     }
 
-
     $scope.lunchboxCount = _lunchboxCount;
     $scope.handyCount = _handyCount;
     $scope.petCarrierCount = _petCarrierCount;
     $scope.starterPackCount = _starterPackCount;
-
-
   }
 
   function updateCount() {
-
     var types = $scope.save.vault.LunchBoxesByType = [],
-    count = $scope.save.vault.LunchBoxesCount = _lunchboxCount + _handyCount + _petCarrierCount + _starterPackCount;
+      count = $scope.save.vault.LunchBoxesCount = _lunchboxCount + _handyCount + _petCarrierCount + _starterPackCount;
 
-    for (var i = 0; i < _lunchboxCount; i++){
+    for (var i = 0; i < _lunchboxCount; i++) {
       types.push(0);
     }
 
-    for (var i = 0; i < _handyCount; i++){
+    for (var i = 0; i < _handyCount; i++) {
       types.push(1);
     }
 
-    for (var i = 0; i < _petCarrierCount; i++){
+    for (var i = 0; i < _petCarrierCount; i++) {
       types.push(2);
     }
 
-    for (var i = 0; i < _starterPackCount; i++){
+    for (var i = 0; i < _starterPackCount; i++) {
       types.push(3);
     }
-
   }
-  
+
   function extractTeams() {
     $scope.save.vault.wasteland.teams.forEach(function (team) {
       $scope.wastelandTeams.push({
@@ -1213,28 +1156,24 @@ app.controller('dwellerController', function ($scope) {
       });
     });
   }
-  
+
   function findDweller(id) {
     var dweller = null;
-
     $scope.save.dwellers.dwellers.forEach(function (d) {
       if (d.serializeId == id) {
         dweller = d;
       }
     });
-
     return dweller;
   }
-  
+
   function findActor(id) {
     var actor = null;
-
     $scope.save.dwellers.actors.forEach(function (d) {
       if (d.serializeId == id) {
         actor = d;
       }
     });
-
     return actor;
   }
 
@@ -1247,12 +1186,9 @@ app.controller('dwellerController', function ($scope) {
       }
     });
   }
-
 });
 
-
-
-function preset(preset, saveFileName){
+function preset(preset, saveFileName) {
 
   /*
   if(isLoaded){
@@ -1270,23 +1206,15 @@ function preset(preset, saveFileName){
 
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = readPreset;
-
   xhr.open("GET", file, true);
   xhr.send();
 
-
-  function readPreset()
-  {
-
+  function readPreset() {
     if (xhr.readyState == 4) {
       var resp = JSON.parse(xhr.responseText);
       $('.instructions').hide();
 
       edit(saveFileName, resp);
     }
-
   };
-
-
-
 }
