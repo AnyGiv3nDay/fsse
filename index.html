@@ -23,21 +23,17 @@ Copyright (C) 2017
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width, user-scalable=no">
-
   <title>Fallout Shelter - Save Editor</title>
   <meta name="description"
     content="Web app to edit Fallout Shelter save games. You can change dwellers SPECIAL, other stats and vault's resources.">
-
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body ng-app="shelter" ng-controller="dwellerController">
   <div class="container">
-
     <div class="row box" ng-show="section == 'vault'">
       <div class="col-sm-12 vault_info">
-
         <form ng-show="fileName" name="vaultForm">
           <div class="form-group row" ng-class="{ 'has-error': vaultForm.vaultName.$invalid }">
             <div class="col-sm-4">
@@ -51,6 +47,7 @@ Copyright (C) 2017
               <input type="number" class="form-control" min="0" name="caps"
                 ng-model="save.vault.storage.resources.Nuka">
             </div>
+
             <div class="col-sm-4">
               <label>Nuka Cola Quantums</label>
               <input type="number" class="form-control" min="0" name="nuka"
@@ -59,8 +56,6 @@ Copyright (C) 2017
           </div>
 
           <div class="form-group row">
-
-
             <div class="col-sm-4">
               <label>Lunch Boxes</label>
               <input type="number" class="form-control" min="0" name="lunchbox" ng-model="lunchboxCount">
@@ -78,12 +73,10 @@ Copyright (C) 2017
           </div>
 
           <div class="form-group row">
-
             <div class="col-sm-4">
               <label>Starter Pack</label>
               <input type="number" class="form-control" min="0" name="starterPack" ng-model="starterPackCount">
             </div>
-
           </div>
 
           <hr />
@@ -143,15 +136,18 @@ Copyright (C) 2017
               <label>Remove Rocks</label><br />
               <button type="button" class="btn btn-primary" ng-click="removeRocks()">Activate</button>
             </div>
+
             <div class="col-sm-4">
               <label>Unlock All Rooms</label><br />
               <button type="button" class="btn btn-primary" ng-click="unlockrooms()">Activate</button>
             </div>
+
             <div class="col-sm-4">
               <label>Unlock All Recipes</label><br />
               <button type="button" class="btn btn-primary" ng-click="unlockrecipes()">Activate</button>
             </div>
           </div>
+
           <hr />
 
           <div class="form-group row">
@@ -159,10 +155,12 @@ Copyright (C) 2017
               <label>Max All Dweller Stats</label><br />
               <button type="button" class="btn btn-primary" ng-click="maxSpecialAll()">Activate</button>
             </div>
+
             <div class="col-sm-4">
               <label>Max All Dweller Happiness</label><br />
               <button type="button" class="btn btn-primary" ng-click="maxhappinessAll()">Activate</button>
             </div>
+
             <div class="col-sm-4">
               <label>Heal All Dwellers</label><br />
               <button type="button" class="btn btn-primary" ng-click="healAll()">Activate</button>
@@ -174,10 +172,12 @@ Copyright (C) 2017
               <label>Clear Emergency on all rooms</label><br />
               <button type="button" class="btn btn-primary" ng-click="clearemergency()">Activate</button>
             </div>
+
             <div class="col-sm-4">
               <label>Remove Dwellers Waiting</label><br />
               <button type="button" class="btn btn-primary" ng-click="removedwellersWaiting()">Activate</button>
             </div>
+
             <div class="col-sm-4">
               <label>Unlock Themes</label><br />
               <button type="button" class="btn btn-primary" ng-click="unlockthemes()">Activate</button>
@@ -198,15 +198,12 @@ Copyright (C) 2017
 
 
     <div class="row box" ng-show="section == 'dwellers'">
-
       <div class="dwellers list-group col-sm-4">
         <a ng-repeat="d in save.dwellers.dwellers" ng-click="editDweller(d);" ng-class="{ 'active': dweller == d }"
           class="list-group-item">{{ d.name }} {{ d.lastName }}</a>
       </div>
-
       <div class="dweller_info col-sm-8" ng-hide="!dweller.name">
         <a href="#" class="back_button glyphicon glyphicon-chevron-left" ng-click="closeDweller()">Back</a>
-
         <form name="dwellerForm">
           <div class="form-group row">
             <div class="col-sm-4">
@@ -244,8 +241,8 @@ Copyright (C) 2017
               <label>Max Health</label>
               <input type="number" class="form-control" name="maxhealth" ng-model="dweller.health.maxHealth">
             </div>
-
           </div>
+
           <div class="form-group row">
             <div class="col-sm-4">
               <label>Radiation</label>
@@ -257,26 +254,18 @@ Copyright (C) 2017
               <label>Level</label>
               <input type="number" class="form-control" name="level" min="1" ng-model="dweller.experience.currentLevel">
             </div>
-
-            <div class="col-sm-4">
-              <label>Skin Color</label>
-              <input class="form-control jscolor" id="skinColor" name="skincolor" ng-model="skinColor">
-            </div>
           </div>
 
           <div class="form-group row">
             <div class="col-sm-4">
-              <label>Hair Color</label>
-              <input class="form-control jscolor" name="hairColor" ng-model="hairColor">
+              <label>Skin Color</label>
+              <input class="form-control jscolor" id="skinColor" name="skincolor" ng-model="skinColor">
             </div>
 
             <div class="col-sm-4">
-              <label>Outfit Color</label>
-              <input class="form-control jscolor" id="outfitColor" name="outfitColor" ng-model="outfitColor">
+              <label>Hair Color</label>
+              <input class="form-control jscolor" name="hairColor" ng-model="hairColor">
             </div>
-
-
-
           </div>
 
           <div class="form-group row">
@@ -286,7 +275,6 @@ Copyright (C) 2017
                 ng-options="o.v as o.n for o in [{ n: 'Not Pregnant', v: false }, { n: 'Pregnant', v: true }]"></select>
             </div>
 
-
             <div class="col-sm-4" ng-if="dweller.pregnant">
               <label>Baby Ready</label>
               <select class="form-control" name="babyReady" ng-model="dweller.babyReady"
@@ -294,13 +282,32 @@ Copyright (C) 2017
             </div>
           </div>
 
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>Equiped Outfit</label>
+              <select class="form-control" name="equipedOutfit" ng-model="dweller.equipedOutfit.id"
+                ng-options="label as value for (label,value) in { jumpsuit: 'jumpsuit', PiperSpecial: 'PiperSpecial' }"></select>
+            </div>
+          
+            <div class="col-sm-4">
+              <label>Equiped Weapon</label>
+              <select class="form-control" name="equipedWeaponid" ng-model="dweller.equipedWeapon.id"
+                ng-options="label as value for (label,value) in { Fist: 'Fist', HuntingRifle_Rusty: 'HuntingRifle_Rusty', Magnum_Hardened: 'Magnum_Hardened' }"></select>
+            </div>
+
+            <!-- expreminetal/need to have already equiped a pet--><!--
+            <div class="col-sm-4">
+              <label>Equiped Pet</label>
+              <select class="form-control" name="equippedPet" ng-model="dweller.equippedPet.id"
+                ng-options="label as value for (label,value) in { sphynx_l: 'sphynx_l' }"></select>
+            </div>-->
+          </div>
 
           <hr />
 
           <div class="form-group row">
             <div class="col-sm-1 stat" ng-repeat="stat in dweller.stats.stats">
               <label ng-bind="statsName[$index]" class="center"></label>
-
               <div class="bar" ng-class="'value' + stat.value"></div>
               <input type="number" class="form-control" ng-model="stat.value" min="0" max="10">
             </div>
